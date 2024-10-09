@@ -59,13 +59,14 @@ export async function getTestTNMI1() {
     return resp
 }
 
-export async function checkUser(values: { email: string }) {
+export async function checkUserTNM2(values: { email: string }) {
     const { email } = values
 
     try {
         const user = await prisma.user.findUnique({
             where: {
-                email
+                email,
+                default_list: true,
             }
         });
         if (!user) {
@@ -78,7 +79,7 @@ export async function checkUser(values: { email: string }) {
     }
 }
 
-export async function saveUser(values: User) {
+export async function saveUserTNM2(values: User) {
     const { name, email, phone } = values
 
     try {
@@ -86,7 +87,8 @@ export async function saveUser(values: User) {
             data: {
                 email,
                 name,
-                phone
+                phone,
+                default_list: true
             }
         })
 
@@ -227,7 +229,7 @@ export async function sendEmail(email: string, fristname: string, res: MyTest, u
             console.error("Falha no envio do email.", err);
             return { err, message: { type: "Error", data: "Falha no envio do email" } };
         })
-        return "Email enviado com sucesso"
+        return { message: { type: "success", data: "Email enviado com sucesso" } };
     } catch (error) {
         console.error("Aconteceu um erro inesperado", error);
         return { message: { type: "error", data: "Aconteceu um erro inesperado" } };

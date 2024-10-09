@@ -14,7 +14,7 @@ import {
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { Button } from "@/components/ui/button";
-import { checkUser, getTestTNM2, saveUser, sendEmail } from "../app/tests/client/actions";
+import { checkUserTNM2, getTestTNM2, saveUserTNM2, sendEmail } from "../app/tests/client/actions";
 import { Loader } from "lucide-react";
 import { useMyTestProvider } from "../app/hooks/MyTestProvider";
 import { MyTest } from "../app/types/mytest";
@@ -69,17 +69,22 @@ const GenerateTestForm = () => {
     
     try {
       const firstName = values.name.split(' ')[0];
-      const user = await checkUser(values)
+      const user = await checkUserTNM2(values)
 
       if (!user) {
         const res: MyTest = await getTestTNM2()
-        myTest.onOpen(res, firstName, success, workers, painel)
         
         const email = await sendEmail(values.email, firstName, res as MyTest, urls) 
         console.log("RESP EMAIL", email);
         
-        await saveUser(values as User);
-        toast.success("Teste gerado com sucesso");
+        if (email.message.type === "success") {
+          await saveUserTNM2(values as User);
+          toast.success("Teste gerado com sucesso");
+          myTest.onOpen(res, firstName, success, workers, painel)
+        }else{
+          toast.error("Ocorreu um erro inesperado, tente mais tarde")
+        }
+        
       } else {
         success = false
         const resp = null
