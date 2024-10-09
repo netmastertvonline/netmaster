@@ -78,7 +78,7 @@ const GenerateTestForm = () => {
         console.log("RESP EMAIL", email);
         
         if (email.message.type === "success") {
-          // await saveUserTNM2(values as User);
+          await saveUserTNM2(values as User);
           toast.success("Teste gerado com sucesso");
           myTest.onOpen(res, firstName, success, workers, painel)
         }else{
