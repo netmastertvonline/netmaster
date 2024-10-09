@@ -98,7 +98,7 @@ export async function saveUserTNM2(values: User) {
     }
 }
 
-export async function sendEmail(email: string, fristname: string, res: MyTest, urls: string[]) {
+export async function sendEmail(email: string, firstname: string, res: MyTest, urls: string[]) {
 
     try {
         const message = `
@@ -110,7 +110,7 @@ export async function sendEmail(email: string, fristname: string, res: MyTest, u
                                     </tr>
                                     <tr>
                                         <td style="padding:0;font-family:Arial,sans-serif;text-align:center;line-height:1.5em;font-size:1.5em;color:#333;font-weight:200">
-                                            <p style="margin:30px 50px; text-align:center;"><strong>${fristname}</strong>, Seja bem vindo(a) <strong>Netmaster TV Online</strong><br></p>
+                                            <p style="margin:30px 50px; text-align:center;"><strong>${firstname}</strong>, Seja bem vindo(a) <strong>Netmaster TV Online</strong><br></p>
                                             <p style="margin:10px 50px; text-align:center">Aqui está o seu teste de cliente com duração de 3 horas, <b>APROVEITE</b>!</p>
                                         </td>
                                     </tr>
@@ -123,7 +123,7 @@ export async function sendEmail(email: string, fristname: string, res: MyTest, u
                                                     </tr>
                                                     <tr>
                                                         <td style="padding:10px;font-family:Arial,sans-serif;text-align:left;color:#333;font-weight:600">Nome</td>
-                                                        <td style="padding:10px;font-family:Arial,sans-serif;text-align:left;color:#333;font-weight:600">${fristname}</td>
+                                                        <td style="padding:10px;font-family:Arial,sans-serif;text-align:left;color:#333;font-weight:600">${firstname}</td>
                                                     </tr>
                                                     <tr>
                                                         <td style="padding:10px;font-family:Arial,sans-serif;text-align:left;color:#333;font-weight:600">Usuário</td>
@@ -213,22 +213,17 @@ export async function sendEmail(email: string, fristname: string, res: MyTest, u
                 user: process.env.MAIL_USER,
                 pass: process.env.MAIL_PASS
             }
-        })
+        });
 
-        transporter.sendMail({
+        const mailOptions = {
             from: "Netmaster TV Online <contatonetmastertvonline@gmail.com>",
             to: email,
             subject: "Teste IPTV",
             html: message
-        })
-        .then(() => {
-            console.log("Email enviado com sucesso");
-            return { message: { type: "success", data: "Email enviado com sucesso" } };
-        })
-        .catch((err) => {
-            console.error("Falha no envio do email.", err);
-            return { err, message: { type: "Error", data: "Falha no envio do email" } };
-        })
+        };
+
+        await transporter.sendMail(mailOptions);
+        
         return { message: { type: "success", data: "Email enviado com sucesso" } };
     } catch (error) {
         console.error("Aconteceu um erro inesperado", error);
