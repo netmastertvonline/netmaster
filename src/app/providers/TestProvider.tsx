@@ -178,7 +178,7 @@ const MyTestModalProvider = () => {
                 <div className="mb-10">
                   <h2 className="text-2xl font-bold mb-2">Teste Enviado</h2>
                   <p className="text-lg">
-                    O seu teste IPTV foi enviado para o email fornecido.
+                    O seu teste IPTV foi gerado!! Entre 2 a 3 minutos receberá seu teste no email fornecido.
                   </p>
                   <p className="text-lg">
                     Verifique sua <b>caixa de email</b>, <b>lixeira</b> e <b>span</b> para obter as informações do teste.

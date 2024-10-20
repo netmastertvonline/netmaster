@@ -62,7 +62,7 @@ const GenerateTestForm = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setIsGettingTest(true)
-    const urls: string[] = ["http://day13.life", "http://naw4.com"] 
+    const urls: string[] = ["http://serviceon.ltd", "http://tcosmarter.ddns.net", "http://tntv4.com:80"] 
     const workers = false
     let success = true
     const painel = ""
