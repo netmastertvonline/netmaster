@@ -14,7 +14,7 @@ import {
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { Button } from "@/components/ui/button";
-import { checkUserTNM2, getTestTNM2, saveUserTNM2, sendEmail } from "../app/tests/client/actions";
+import { checkUserTNM2, getTestTNM2, getTestTNMI1, saveUserTNM2, sendEmail } from "../app/tests/client/actions";
 import { Loader } from "lucide-react";
 import { useMyTestProvider } from "../app/hooks/MyTestProvider";
 import { MyTest } from "../app/types/mytest";
@@ -62,7 +62,6 @@ const GenerateTestForm = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setIsGettingTest(true)
-    const urls: string[] = ["http://serviceon.ltd", "http://tcosmarter.ddns.net", "http://tntv4.com:80"] 
     const workers = false
     let success = true
     const painel = ""
@@ -72,15 +71,15 @@ const GenerateTestForm = () => {
       const user = await checkUserTNM2(values)
 
       if (!user) {
-        const res: MyTest = await getTestTNM2()
+        const res = await sendMail1(values as User, firstName)
+        setTimeout(() => sendMail3(values as User, firstName), 5000)
         
-        const email = await sendEmail(values.email, firstName, res as MyTest, urls) 
-        console.log("RESP EMAIL", email);
+        console.log("RESP EMAIL", res.email);
         
-        if (email.message.type === "success") {
+        if (res.email.message.type === "success") {
           await saveUserTNM2(values as User);
           toast.success("Teste gerado com sucesso");
-          myTest.onOpen(res, firstName, success, workers, painel)
+          myTest.onOpen(res.res, firstName, success, workers, painel)
         }else{
           toast.error("Ocorreu um erro inesperado, tente mais tarde")
         }
@@ -98,6 +97,19 @@ const GenerateTestForm = () => {
     form.reset()
     setIsGettingTest(false)
   };
+
+  const sendMail1 = async(values: User, firstName: string) =>{
+    const res: MyTest = await getTestTNM2()
+    const urls: string[] = ["http://serviceon.ltd", "http://tcosmarter.ddns.net", "http://tntv4.com:80"] 
+    const email = await sendEmail(values.email, firstName, res as MyTest, urls) 
+    return {res, email}
+  }
+
+  const sendMail3 = async(values: User, firstName: string) =>{
+    const res: MyTest = await getTestTNMI1()
+    const urls: string[] = ["http://7smartvplayers.top:2052"] 
+    await sendEmail(values.email, firstName, res as MyTest, urls) 
+  } 
 
   return (
     <div className="w-full">
