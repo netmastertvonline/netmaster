@@ -87,4 +87,7 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
   }
+  .thini-scroll{
+    scrollbar-color: rgb(231, 34, 34) rgb(19, 19, 19);
+  }
 }

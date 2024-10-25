@@ -2,17 +2,21 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { ToastProvider } from "./providers/ToastProvider";
+import { ThemeProvider } from "./providers/ThemeProvider";
+import MyTestModalProvider from "./providers/TestProvider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
   weight: "100 900",
 });
+
 const geistMono = localFont({
   src: "./fonts/GeistMonoVF.woff",
   variable: "--font-geist-mono",
   weight: "100 900",
 });
+
 export const metadata: Metadata = {
   title: "Gerar teste IPTV",
   description: "Experimente nosso serviço IPTV com um teste gratuito e descubra uma nova forma de assistir TV.",
@@ -63,11 +67,19 @@ export default function RootLayout({
         <link rel="icon" href="https://netmastertvonline.com/wp-content/uploads/2022/10/favicon.png" sizes="any" />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-hidden`}
       >
-        <ToastProvider />
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <MyTestModalProvider />
+          <ToastProvider />
+          {children}
+        </ThemeProvider>
       </body>
-    </html>
+    </html >
   );
 }
