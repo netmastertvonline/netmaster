@@ -12,7 +12,6 @@ const TNM2 = () => {
         <GenerateTestForm />
       </div>
     </div>
-
   );
 }
 

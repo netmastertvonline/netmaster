@@ -158,9 +158,9 @@ const MyTestModalProvider = () => {
             <>
               {success ? ( //success users                    
                 <div className="mb-10">
-                  <h2 className="text-2xl font-bold mb-2">Teste Enviado</h2>
+                  <h2 className="text-2xl font-bold mb-2">Teste enviado para o seu email</h2>
                   <p className="text-lg">
-                    O seu teste IPTV foi gerado!! Entre 2 a 3 minutos receberá seu teste no email fornecido.
+                    O seu teste IPTV foi gerado!! Entre 2 e 5 minutos, receberá de 2 a 3 testes no email fornecido.
                   </p>
                   <p className="text-lg">
                     Verifique sua <b>caixa de email</b>, <b>lixeira</b> e <b>span</b> para obter as informações do teste.
@@ -169,16 +169,16 @@ const MyTestModalProvider = () => {
               ) : ( //users faild
                 <>
                   <div className="mb-10">
-                    <h2 className="text-2xl font-bold mb-2">Teste Já Gerado</h2>
+                    <h2 className="text-2xl font-bold mb-2">Teste já gerado</h2>
                     <p className="text-lg">
-                      Um teste já foi gerado para este usuário. Aproveite!
+                      Um teste já foi gerado para este email. Aproveite!
                     </p>
                     <p className="text-lg">
                       {myName}, para <b>ativar sua conta</b>, clique no botão abaixo.
                     </p>
                   </div>
                   <div className="mt-4">
-                    <Link href={"https://netmastertvonline.com/pagina-de-contato"} target="_blank">
+                    <Link href={"https://suportemil.com"} target="_blank">
                       <Button className="w-full bg-green-500 hover:bg-green-600 text-white" >
                         Ativar conta
                       </Button>
