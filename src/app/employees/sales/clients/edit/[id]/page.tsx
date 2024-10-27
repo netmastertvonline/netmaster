@@ -15,7 +15,7 @@ const EditClientSalesPage = () => {
 
             <div className='w-full flex flex-col items-center'>
                 <TitleH1Sales text='Editar cliente' className='mb-5'  />
-                <div className='w-[800px] mb-20'>
+                <div className='w-[1000px] mb-20'>
                     <ClientForm />
                 </div>
             </div>

@@ -71,6 +71,7 @@ body {
 @layer base {
   * {
     @apply border-border;
+    list-style: none;
   }
   body {
     @apply bg-background text-foreground;

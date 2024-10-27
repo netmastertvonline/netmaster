@@ -50,7 +50,7 @@ export function AsideItemCol ({ children, id, className }: AsideSalesGenericProp
 export function AsideSalesLink ({ children, id, className,icon, path, active }: AsideSalesLinkProps ) {
     return(
         <li className="">
-            <Link href={path} id={id} className={cn(`flex justify-start items-start gap-2 p-3 rounded-lg text-my_text ${active ? "bg-red-700 text-white" : "hover:bg-zinc-800" }`, className)}>
+            <Link href={path} id={id} className={cn(`flex justify-start items-center gap-2 p-3 rounded-lg text-my_text ${active ? "bg-red-700 text-white" : "hover:bg-zinc-800" }`, className)}>
                 <span className={` ${active ? "text-white": " dark:text-white"}`}>{icon}</span>
                 {children}
             </Link> 
