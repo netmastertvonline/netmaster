@@ -256,7 +256,7 @@ export async function sendEmail(email: string, firstname: string, res: MyTest, u
             </tr>
             <tr>
                 <td style="text-align:center; padding-top:40px; padding-bottom:40px">
-                    <a href="https://netmastertvonline.com/pagina-de-contato" target="_blank" style="text-decoration:none">
+                    <a href="https://suportemil.com" target="_blank" style="text-decoration:none">
                         <button style="background-color:#4CAF50; color:white; padding:15px 32px; text-align:center; text-decoration:none; display:inline-block; font-size:16px; margin:4px 2px; cursor:pointer; border-radius:0px; border:2px solid #4CAF50; transition:0.2s; transform:translateY(4px);">ATIVAR CONTA</button>
                     </a>
                 </td>
