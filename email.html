@@ -1,108 +1,4 @@
-"use server"
-
-import { prisma } from "@/app/services/database/db"
-import { MyTest } from "@/app/types/mytest"
-import { User } from "@prisma/client"
-import nodemailer from "nodemailer"
-
-export async function getTestTNM2() {
-    const data = {
-        "comando": "testebc1",
-        "url_painel": "https://pouy.one/chatbot/check/?k=1d737ab4f8",
-        "tipo_painel": "koffice"
-    }
-
-    const res = await fetch(`https://gestorv3.app.br/api_tvnetmaster.php`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'API-Key': process.env.DATA_API_KEY!,
-        },
-        body: JSON.stringify(data)
-    })
-    const resp = await res.json()
-
-    return resp
-}
-
-export async function getTestTNM7() {
-
-    const res = await fetch(`https://playtectv.qpanel.top/api/chatbot/bQELo0Dgro/BV4D3rLaqZ`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'API-Key': process.env.DATA_API_KEY!,
-        },
-    })
-    const resp = await res.json()
-
-    return resp
-}
-
-export async function getTestTNMI1() {
-    const data = {
-        "comando": "testebc1",
-        "url_painel": "https://7painel.com/chatbot/check/?k=985bdb963f",
-        "tipo_painel": "koffice"
-    }
-
-    const res = await fetch(`https://gestorv3.app.br/api_tvnetmaster.php`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'API-Key': process.env.DATA_API_KEY!,
-        },
-        body: JSON.stringify(data)
-    })
-    const resp = await res.json()
-
-    return resp
-}
-
-export async function checkUserTNM2(values: { email: string }) {
-    const { email } = values
-
-    try {
-        const user = await prisma.user.findUnique({
-            where: {
-                email,
-                default_list: true,
-            }
-        });
-        if (!user) {
-            return null
-        }
-
-        return user;
-    } catch (error) {
-        console.log("Error checking user:", error);
-    }
-}
-
-export async function saveUserTNM2(values: User) {
-    const { name, email, phone } = values
-
-    try {
-        const user = await prisma.user.create({
-            data: {
-                email,
-                name,
-                phone,
-                default_list: true
-            }
-        })
-
-        return user
-    } catch (error) {
-        console.log("Error creating user:", error);
-    }
-}
-
-export async function sendEmail(email: string, firstname: string, res: MyTest, urls: string[], listname: string, dns?: string[]) {
-
-    try {
-        const message = `
-                        <div style="border:0; cellspacing:0; cellpadding:0; width:100%; text-align:center;">
+<div style="border:0; cellspacing:0; cellpadding:0; width:100%; text-align:center;">
     <table align="center" border="0" cellpadding="0" cellspacing="0" style="background-color:#fff; max-width:600px; margin:0 auto; padding-bottom:20px">
         <tbody>
             <tr align="center" style="margin:0 auto">
@@ -143,18 +39,16 @@ export async function sendEmail(email: string, firstname: string, res: MyTest, u
                                     <td style="padding:10px; font-family:Arial,sans-serif; text-align:left; color:#333; font-weight:600;">${url}</td>
                                 </tr>`
                             ))}
-                            ${dns && dns?.length > 0 ? 
+                            <tr>
+                                <td style="padding:10px; font-family:Arial,sans-serif; text-align:left; color:#333; font-weight:600;">DNS para aplicativos</td>
+                                <td style="padding:10px; font-family:Arial,sans-serif; text-align:left; color:#333; font-weight:600;">STB, SMARTUP, IPTV PORTAL</td>
+                            </tr>
+                            ${dns.length > 0 && dns.map((d, index) => (
                                 `<tr>
-                                    <td style="padding:10px; font-family:Arial,sans-serif; text-align:left; color:#333; font-weight:600;">DNS para aplicativos</td>
-                                    <td style="padding:10px; font-family:Arial,sans-serif; text-align:left; color:#333; font-weight:600;">STB, SMARTUP, IPTV PORTAL</td>
-                                </tr>
-                                ${dns?.map((d, index) => (
-                                    `<tr>
-                                        <td style="padding:10px; font-family:Arial,sans-serif; text-align:left; color:#333; font-weight:600;">DNS ${index + 1}</td>
-                                        <td style="padding:10px; font-family:Arial,sans-serif; text-align:left; color:#333; font-weight:600;">${d}</td>
-                                    </tr>`
-                                ))}`
-                            : ''}
+                                    <td style="padding:10px; font-family:Arial,sans-serif; text-align:left; color:#333; font-weight:600;">DNS ${index + 1}</td>
+                                    <td style="padding:10px; font-family:Arial,sans-serif; text-align:left; color:#333; font-weight:600;">${d}</td>
+                                </tr>`
+                            ))}
                         </tbody>
                     </table>
                 </td>
@@ -324,30 +218,3 @@ export async function sendEmail(email: string, firstname: string, res: MyTest, u
         </tbody>
     </table>
 </div>
-
-
-        `
-
-        const transporter = nodemailer.createTransport({
-            service: 'gmail',
-            auth: {
-                user: process.env.MAIL_USER,
-                pass: process.env.MAIL_PASS
-            }
-        });
-
-        const mailOptions = {
-            from: "Netmaster TV Online <contatonetmastertvonline@gmail.com>",
-            to: email,
-            subject: "Teste IPTV",
-            html: message
-        };
-
-        await transporter.sendMail(mailOptions);
-
-        return { message: { type: "success", data: "Email enviado com sucesso" } };
-    } catch (error) {
-        console.error("Aconteceu um erro inesperado", error);
-        return { message: { type: "error", data: "Aconteceu um erro inesperado" } };
-    }
-}

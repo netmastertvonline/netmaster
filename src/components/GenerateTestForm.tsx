@@ -69,7 +69,7 @@ const GenerateTestForm = () => {
     try {
       const firstName = values.name.split(' ')[0];
       const user = await checkUserTNM2(values)
-      
+
       if (!user) {
         const res = await sendMail1(values as User, firstName)
         setTimeout(() => sendMail3(values as User, firstName), 5000)
@@ -102,7 +102,8 @@ const GenerateTestForm = () => {
     const listname = "TNM2"
     const res: MyTest = await getTestTNM2()
     const urls: string[] = ["http://serviceon.ltd", "http://tcosmarter.ddns.net", "http://tntv4.com:80"] 
-    const email = await sendEmail(values.email, firstName, res as MyTest, urls, listname) 
+    const dns: string[] = ["64.31.61.14", "103.195.100.208"] 
+    const email = await sendEmail(values.email, firstName, res as MyTest, urls, listname, dns) 
     return {res, email}
   }
 
