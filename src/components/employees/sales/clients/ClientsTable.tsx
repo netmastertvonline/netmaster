@@ -17,29 +17,11 @@ import formatName from '@/lib/formatName'
 import formatDate from '@/lib/formatDate'
 import { Badge } from "@/components/ui/badge"
 import formatNextMonth from '@/lib/format-next-month'
+import { User } from '@/app/types/user'
 
 
 interface ClientsTableProps {
-    clients: {
-        id: string;
-        name: string;
-        phone: string;
-        plan_value: string;
-        plan_type: string;
-        periodicity: string;
-        contracting_plan: Date;
-        expiration_plan: Date;
-        screens: {
-            system_type: string;
-            screen_name: string;
-            painel: string;
-            user_number: string;
-            app_name: string;
-            mac_address: string;
-            app_key: string;
-        }[];
-        notes: string;
-    }[]
+    clients: User[];
 }
 
 const ClientsTable = ({ clients }: ClientsTableProps) => {
@@ -87,9 +69,11 @@ const ClientsTable = ({ clients }: ClientsTableProps) => {
                     </TableBody>
                 </Table>
             </div>
-            <div className='flex mt-10 items-center justify-center'>
-                <Paginate itemsToPaginate={clients} itemsPerPage={itemsPerPage} currentPage={currentPage} setCurrentPage={setCurrentPage} firstIndex={firstIndex} />
-            </div>
+            {clients.length > 10 && (
+                <div className='flex mt-10 items-center justify-center'>
+                    <Paginate itemsToPaginate={clients} itemsPerPage={itemsPerPage} currentPage={currentPage} setCurrentPage={setCurrentPage} firstIndex={firstIndex} />
+                </div>
+            )}
         </div>
 
     )

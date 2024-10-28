@@ -5,35 +5,13 @@ import SearchClientForm from '@/components/employees/SearchClientForm';
 import { Button } from '@/components/ui/button';
 import ClientsTable from '@/components/employees/sales/clients/ClientsTable';
 import Link from 'next/link';
+import { User } from '@/app/types/user';
 
 export const metadata: Metadata = {
     title: "Vendas - Email",
 };
 
-const clients = [
-    {
-        id: '1',
-        name: "maria do carmo",
-        phone: "41984519264",
-        plan_value: '29.99',
-        plan_type: "Padrão",
-        periodicity: "Mensal",
-        contracting_plan: new Date(new Date().getFullYear(), 11, 1),
-        expiration_plan: new Date(new Date().getFullYear(), 12, 1),
-        screens: [
-            {
-                system_type: "IPTV",
-                screen_name: "Tela 1",
-                painel: "Live 21 - TNM4",
-                user_number: "525198465",
-                app_name: "IBO PLAYER",
-                mac_address: "67:5E:4C:8E:6A:26:69:07",
-                app_key: "154895"
-            }
-        ],
-        notes: ""
-    }
-];
+const clients: User | [] = [];
 
 const EmailSalesPage = () => {
     return (

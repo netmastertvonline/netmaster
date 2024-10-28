@@ -67,7 +67,7 @@ export default function RootLayout({
         <link rel="icon" href="https://netmastertvonline.com/wp-content/uploads/2022/10/favicon.png" sizes="any" />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-hidden`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ThemeProvider
           attribute="class"

@@ -1,3 +1,4 @@
+import Back from '@/components/Back';
 import MessageTestMailForm from '@/components/employees/sales/email/MessageTestMailForm'
 import TitleH1Sales from '@/components/employees/sales/TitleH1Sales'
 import { Metadata } from 'next';
@@ -9,10 +10,15 @@ export const metadata: Metadata = {
 
 const SendMailSalesPAge = () => {
   return (
-    <div className='p-5 w-full h-full overflow-hidden'>
-      <TitleH1Sales text='Novo email' className='mb-5' />
-      <div className='mt-10 pb-20'>
-        <MessageTestMailForm />
+    <div className='p-5 w-full h-full'>
+      <Back />
+
+      <div className='w-full flex flex-col items-center'>
+        <TitleH1Sales text='Novo email' className='mb-5' />
+
+        <div className='w-[1000px] mb-20'>
+          <MessageTestMailForm />
+        </div>
       </div>
     </div>
   )

@@ -14,10 +14,10 @@ export const metadata: Metadata = {
 
 const SalesAdminlayout = ({ children }: PropsWithChildren ) => {
   return (
-    <div className='flex flex-col md:flex-row h-screen w-full overflow-hidden thini-scroll'>
+    <div className='flex flex-col md:flex-row h-screen w-screen thini-scroll overflow-hidden'>
       <AsideSales />
-      <main className='w-full overflow-y-auto overflow-hidden'>
-        {children}
+      <main className='w-full h-full overflow-y-auto'>
+          {children}
       </main>
     </div>
   )
