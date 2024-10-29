@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 import { Button } from "@/components/ui/button";
 import { getTestTNMI1 } from "../app/tests/client/actions";
 import { Loader } from "lucide-react";
-import { useMyTestProvider } from "../app/hooks/MyTestProvider";
+import { useMyTestProvider } from "../app/hooks/useMyTestProvider";
 import { MyTest } from "../app/types/mytest";
 
 const GenerateTestFormWorkerTNMI1 = () => {

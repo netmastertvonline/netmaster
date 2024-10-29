@@ -4,8 +4,8 @@ import React from 'react'
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
-import IboPlayerService from '@/components/employees/sales/step-by-step-service/IboPlayerService'
-import IboPlayerProService from '@/components/employees/sales/step-by-step-service/IboPlayerProService '
+import IboPlayerService from '@/components/employees/sales/services/IboPlayerService'
+import IboPlayerProService from '@/components/employees/sales/services/IboPlayerProService '
 import Image from 'next/image'
 
 const ContentPage = () => {

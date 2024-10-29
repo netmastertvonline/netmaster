@@ -25,11 +25,13 @@ import { Button } from "@/components/ui/button";
 import { Loader, Trash } from "lucide-react";
 import { todayDate } from "@/lib/today-date";
 import Editor from "@/components/Editor";
+import { formatToLowerCase } from "@/lib/format-to-lowercase";
 
 const formSchema = z.object({
     name: z.string().min(1, {
         message: "Por favor, digite o nome do cliente.",
     }),
+    email: z.string().email().optional(),
     phone: z.string().min(11, {
         message: "Por favor, digite o telefone do cliente.",
     }),
@@ -159,6 +161,25 @@ const ClientForm = () => {
                         />
                         <FormField
                             control={form.control}
+                            name="email"
+                            render={({ field }) => (
+                                <FormItem className="grow">
+                                    <FormLabel>Email:</FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            type="email"
+                                            disabled={isSubmitting}
+                                            placeholder="exemplo@dominio.com"
+                                            {...field}
+                                            value={field.value ? formatToLowerCase(field.value) : ''}
+                                        />
+                                    </FormControl>
+                                    <FormMessage className="text-[12px]" />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
                             name="phone"
                             render={({ field }) => (
                                 <FormItem>
@@ -279,24 +300,6 @@ const ClientForm = () => {
                                 <div className="w-full grid grid-cols-7 gap-2">
                                     <FormField
                                         control={form.control}
-                                        name={`screens.${idx}.system_type`}
-                                        render={({ field }) => (
-                                            <FormItem>
-                                                <Select onValueChange={field.onChange} value={field.value}>
-                                                    <SelectTrigger className="min-w-[120px]">
-                                                        <SelectValue placeholder="SISTEMA" />
-                                                    </SelectTrigger>
-                                                    <SelectContent {...field}>
-                                                        <SelectItem value="IPTV">IPTV</SelectItem>
-                                                        <SelectItem value="P2P">P2P</SelectItem>
-                                                    </SelectContent>
-                                                </Select>
-                                                <FormMessage className="text-[12px]" />
-                                            </FormItem>
-                                        )}
-                                    />
-                                    <FormField
-                                        control={form.control}
                                         name={`screens.${idx}.screen_name`}
                                         render={({ field }) => (
                                             <FormItem>
@@ -309,6 +312,24 @@ const ClientForm = () => {
                                                         {...field}
                                                     />
                                                 </FormControl>
+                                                <FormMessage className="text-[12px]" />
+                                            </FormItem>
+                                        )}
+                                    />
+                                    <FormField
+                                        control={form.control}
+                                        name={`screens.${idx}.system_type`}
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <Select onValueChange={field.onChange} value={field.value}>
+                                                    <SelectTrigger className="min-w-[120px]">
+                                                        <SelectValue placeholder="SISTEMA" />
+                                                    </SelectTrigger>
+                                                    <SelectContent {...field}>
+                                                        <SelectItem value="IPTV">IPTV</SelectItem>
+                                                        <SelectItem value="P2P">P2P</SelectItem>
+                                                    </SelectContent>
+                                                </Select>
                                                 <FormMessage className="text-[12px]" />
                                             </FormItem>
                                         )}

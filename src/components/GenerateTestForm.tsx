@@ -16,7 +16,7 @@ import toast from "react-hot-toast";
 import { Button } from "@/components/ui/button";
 import { checkUserTNM2, getTestTNM2, getTestTNMI1, saveUserTNM2, sendEmail } from "../app/tests/client/actions";
 import { Loader } from "lucide-react";
-import { useMyTestProvider } from "../app/hooks/MyTestProvider";
+import { useMyTestProvider } from "../app/hooks/useMyTestProvider";
 import { MyTest } from "../app/types/mytest";
 import { Input } from "@/components/ui/input";
 import { User } from "@prisma/client";

@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react'
-import { useMyTestProvider } from '../hooks/MyTestProvider';
+import { useMyTestProvider } from '../hooks/useMyTestProvider';
 import { Button } from '@/components/ui/button';
 import { X } from 'lucide-react';
 import toast from 'react-hot-toast';
