@@ -20,7 +20,10 @@ const geistMono = localFont({
 export const metadata: Metadata = {
   title: "Gerar teste IPTV",
   description: "Experimente nosso serviço IPTV com um teste gratuito e descubra uma nova forma de assistir TV.",
-  viewport: "width=device-width, initial-scale=1",
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+  },
   keywords: "IPTV, teste gratuito, streaming, TV online",
   authors: [{ name: "NetMaster" }],
   robots: "index, follow",
