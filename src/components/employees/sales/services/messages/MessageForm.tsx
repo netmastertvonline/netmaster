@@ -101,7 +101,7 @@ const MessageForm = ({ message }: MessageFormProps) => {
                                         type="text"
                                         disabled={isSubmitting}
                                         {...field}
-                                        onChange={(e) => field.onChange(formatToLowerCase(e.target.value))}
+                                        onChange={(e) => field.onChange(formatToLowerCase(e.target.value)?.trim())}
                                     />
                                 </FormControl>
                                 <FormMessage className="text-[12px]" />
