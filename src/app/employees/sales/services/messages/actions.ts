@@ -12,12 +12,12 @@ export async function createMessage(values: { message: string; title: string }){
         },
         body: JSON.stringify(values)
     })
-    if (res.ok) {
-        revalidatePath('/employees/sales/services/messages')    
-        const message = await res.json()   
-        return message
-    }
-    return
+    console.log("RES", res);
+    
+    revalidatePath('/employees/sales/services/messages')  
+
+    const message = await res.json()   
+    return message
 }
 
 export async function updateMessage(id: string, values: { message: string; title: string; }){
@@ -30,12 +30,11 @@ export async function updateMessage(id: string, values: { message: string; title
         },
         body: JSON.stringify(values)
     })
-    if (res.ok) {
-        revalidatePath('/employees/sales/services/messages')
-        const message = await res.json()   
-        return message
-    }
-    return
+
+    revalidatePath('/employees/sales/services/messages')
+    
+    const message = await res.json()   
+    return message
 }
 
 export async function deleteMessage(id: string){
