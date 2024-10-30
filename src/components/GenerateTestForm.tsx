@@ -74,9 +74,9 @@ const GenerateTestForm = () => {
         const res = await sendMail1(values as User, firstName)
         setTimeout(() => sendMail3(values as User, firstName), 5000)
         
-        console.log("RESP EMAIL", res.email);
+        console.log("RESP EMAIL", res?.email);
         
-        if (res.email.message.type === "success") {
+        if (res?.email.message.type === "success") {
           await saveUserTNM2(values as User);
           toast.success("Teste gerado com sucesso");
           myTest.onOpen(res.res, firstName, success, workers, painel)
@@ -103,15 +103,19 @@ const GenerateTestForm = () => {
     const res: MyTest = await getTestTNM2()
     const urls: string[] = ["http://serviceon.ltd", "http://tcosmarter.ddns.net", "http://tntv4.com:80"] 
     const dns: string[] = ["64.31.61.14", "103.195.100.208"] 
-    const email = await sendEmail(values.email, firstName, res as MyTest, urls, listname, dns) 
-    return {res, email}
+    if (values.email) {
+      const email = await sendEmail(values.email, firstName, res as MyTest, urls, listname, dns) 
+      return {res, email}
+    }
   }
 
   const sendMail3 = async(values: User, firstName: string) =>{
     const listname = "TNMI1"
     const res: MyTest = await getTestTNMI1()
     const urls: string[] = ["http://7smartvplayers.top:2052"] 
-    await sendEmail(values.email, firstName, res as MyTest, urls, listname) 
+    if (values.email) {
+      await sendEmail(values.email, firstName, res as MyTest, urls, listname) 
+    }
   } 
 
   return (
