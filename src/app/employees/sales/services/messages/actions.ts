@@ -4,7 +4,7 @@ import { baseUrl } from "@/utils/base-url"
 import { revalidatePath } from "next/cache"
 
 export async function createMessage(values: { message: string; title: string }){
-    const res = await fetch(`${baseUrl}/employees/sales/messages`, {
+    const res = await fetch(`${baseUrl}/employees/sales/services/messages`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -22,7 +22,7 @@ export async function createMessage(values: { message: string; title: string }){
 
 export async function updateMessage(id: string, values: { message: string; title: string; }){
     
-    const res = await fetch(`${baseUrl}/employees/sales/messages/${id}`, {
+    const res = await fetch(`${baseUrl}/employees/sales/services/messages/${id}`, {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json',
@@ -39,7 +39,7 @@ export async function updateMessage(id: string, values: { message: string; title
 
 export async function deleteMessage(id: string){
     
-    const res = await fetch(`${baseUrl}/employees/sales/messages/${id}`, {
+    const res = await fetch(`${baseUrl}/employees/sales/services/messages/${id}`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
@@ -55,7 +55,7 @@ export async function deleteMessage(id: string){
 }
 
 export async function getAllMessages(){
-    const res = await fetch(`${baseUrl}/employees/sales/messages`, {
+    const res = await fetch(`${baseUrl}/employees/sales/services/messages`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
