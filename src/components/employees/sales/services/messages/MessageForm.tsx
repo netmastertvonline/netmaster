@@ -56,6 +56,8 @@ const MessageForm = ({ message }: MessageFormProps) => {
 
             if (message) {
                 res = await updateMessage(message?.id, values)
+                console.log("RES", res);
+                
                 if(res.status === 200){
                     toast.success(res?.message)
                     form.reset()
