@@ -31,10 +31,12 @@ export async function updateMessage(id: string, values: { message: string; title
         body: JSON.stringify(values)
     })
 
-    revalidatePath('/employees/sales/services/messages')
-    
-    const message = await res.json()   
-    return message
+    if (res.ok) {
+        revalidatePath('/employees/sales/services/messages')
+        const message = await res.json()   
+        return message
+    }
+    return
 }
 
 export async function deleteMessage(id: string){
