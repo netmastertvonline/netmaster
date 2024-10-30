@@ -20,6 +20,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useMessageProvider } from "@/app/hooks/useMessageProvider";
 import { createMessage, updateMessage } from "@/app/employees/sales/services/messages/actions";
 import { Message } from "@/app/types/message";
+import { formatToLowerCase } from "@/lib/format-to-lowercase";
 
 const formSchema = z.object({
     title: z.string().toLowerCase().min(2, {
@@ -100,6 +101,7 @@ const MessageForm = ({ message }: MessageFormProps) => {
                                         type="text"
                                         disabled={isSubmitting}
                                         {...field}
+                                        onChange={(e) => field.onChange(formatToLowerCase(e.target.value))}
                                     />
                                 </FormControl>
                                 <FormMessage className="text-[12px]" />

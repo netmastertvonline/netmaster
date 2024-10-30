@@ -30,7 +30,8 @@ export async function updateMessage(id: string, values: { message: string; title
         },
         body: JSON.stringify(values)
     })
-
+    console.log("RESPONSE", res);
+    
     if (res.ok) {
         revalidatePath('/employees/sales/services/messages')
         const message = await res.json()   
