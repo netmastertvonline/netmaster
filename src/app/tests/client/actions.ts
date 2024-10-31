@@ -63,7 +63,7 @@ export async function checkUserTNM2(values: { email: string }) {
     const { email } = values
 
     try {
-        const user = await prisma.user.findUnique({
+        const user = await prisma.user.findFirst({
             where: {
                 email,
                 default_list: true,

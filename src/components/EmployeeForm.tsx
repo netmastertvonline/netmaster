@@ -124,13 +124,17 @@ const EmployeeForm = () => {
                     />
                     
                     <div className="my-3">
-                        <Button
+                    <Button
                             className="w-full"
                             type={"submit"}
                             variant={"default"}
                             disabled={!isValid || isSubmitting || isSaving}
                         >
-                            {isSaving ? <Loader className="animate-spin" /> : "Salvar"}
+                            {isSaving ?
+                                <span className="flex items-center gap-2">Salvando <Loader className="animate-spin" /></span>
+                                :
+                                <span className="flex items-center gap-2">Salvar</span>
+                            }
                         </Button>
                     </div>
                 </form>

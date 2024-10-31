@@ -59,7 +59,7 @@ const MessageForm = ({ message }: MessageFormProps) => {
                 res = await updateMessage(message?.id, values)
                 console.log("RES", res);
                 
-                if(res.status === 200){
+                if(res?.status === 200){
                     toast.success(res?.message)
                     form.reset()
                     messageModal.onClose()
@@ -101,7 +101,7 @@ const MessageForm = ({ message }: MessageFormProps) => {
                                         type="text"
                                         disabled={isSubmitting}
                                         {...field}
-                                        onChange={(e) => field.onChange(formatToLowerCase(e.target.value)?.trim())}
+                                        onChange={(e) => field.onChange(formatToLowerCase(e.target.value))}
                                     />
                                 </FormControl>
                                 <FormMessage className="text-[12px]" />
@@ -146,7 +146,6 @@ const MessageForm = ({ message }: MessageFormProps) => {
                                 <>
                                     {message ? "Editar": "Salvar" }
                                 </>
-                                
                             }
                         </Button>
                     </div>

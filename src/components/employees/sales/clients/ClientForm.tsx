@@ -26,12 +26,15 @@ import { Loader, Trash } from "lucide-react";
 import { todayDate } from "@/lib/today-date";
 import Editor from "@/components/Editor";
 import { formatToLowerCase } from "@/lib/format-to-lowercase";
+import { createUser } from "@/app/employees/sales/clients/actions";
+import { Screen, Subscription, User } from "@prisma/client";
+import removeSpaces from "@/lib/remove-spaces";
 
 const formSchema = z.object({
     name: z.string().min(1, {
         message: "Por favor, digite o nome do cliente.",
     }),
-    email: z.string().email().optional(),
+    email: z.string().optional(),
     phone: z.string().min(11, {
         message: "Por favor, digite o telefone do cliente.",
     }),
@@ -43,8 +46,8 @@ const formSchema = z.object({
     contracting_plan: z.string().optional(),
     expiration_plan: z.string().optional(),
     screens: z.array(z.object({
-        system_type: z.string().optional(),
         screen_name: z.string().optional(),
+        system_type: z.string().optional(),
         painel: z.string().optional(),
         user_number: z.string().optional(),
         app_name: z.string().optional(),
@@ -54,20 +57,34 @@ const formSchema = z.object({
     notes: z.string().optional(),
 });
 
-const ClientForm = () => {
+interface ClientFormProps {
+    client?: (User & { subscription: (Subscription & { screens: Screen[] })[] });
+} 
+
+const ClientForm = ({ client }: ClientFormProps) => {    
     const [isSaving, setIsSaving] = useState(false)
-    const today = todayDate()
+    const today = todayDate()    
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            name: '',
-            phone: '',
-            plan_value: '29.99',
-            plan_type: "Padrão",
-            periodicity: "Mensal",
-            contracting_plan: today,
-            screens: [{ screen_name: 'Tela 1' }],
+            name: client?.name || "",
+            email: client?.email || "",
+            phone: client?.phone || "",
+            plan_value: client?.subscription[0]?.plan_value || '29.99',
+            plan_type: client?.subscription[0]?.plan_type || "Padrão",
+            periodicity: client?.subscription[0]?.periodicity || "Mensal",
+            contracting_plan: client?.subscription[0]?.contracting_plan || today,
+            expiration_plan: client?.subscription[0]?.expiration_plan || "",
+            screens: client?.subscription[0]?.screens?.map(screen => ({
+                screen_name: screen?.screen_name || "",
+                system_type: screen?.system_type || "",
+                painel: screen?.painel || "",
+                user_number: screen?.user_number || "",
+                app_name: screen?.app_name || "",
+                mac_address: screen?.mac_address || "",
+                app_key: screen?.app_key || ""
+            })) || [{ screen_name: "Tela 1", system_type: "IPTV" }],
         },
     });
 
@@ -79,9 +96,10 @@ const ClientForm = () => {
     const { isSubmitting, isValid } = form.formState;
     const watch = form.watch;
     const watchPeriodicity = watch("periodicity");
+    const watchContractingPlan = watch("contracting_plan");
 
     useEffect(() => {
-        const expirationDate = new Date(today);
+        const expirationDate = new Date(watchContractingPlan || '');
         switch (watchPeriodicity) {
             case "Mensal":
                 expirationDate.setMonth(expirationDate.getMonth() + 1);
@@ -97,15 +115,16 @@ const ClientForm = () => {
                 break;
         }
         form.setValue("expiration_plan", expirationDate.toISOString().split('T')[0]);
-    }, [watchPeriodicity]);
+    }, [watchPeriodicity, watchContractingPlan]);
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
-        console.log(values);
-
         setIsSaving(true)
         try {
-            toast.success("Cliente criado com sucesso")
-            form.reset()
+            const res = await createUser(values as unknown as User)
+            if (res.status = 201) {
+                toast.success(res.message)
+                form.reset()
+            }
         } catch (error) {
             console.log(error);
             toast.error("Ocorreu um erro inesperado")
@@ -113,17 +132,18 @@ const ClientForm = () => {
         setIsSaving(false)
     };
 
-    const addAnswers = () => {
-        append({ screen_name: '', user_number: '', app_name: '', mac_address: '', app_key: '' });
+    const addScreens = () => {
+        append({ system_type: "IPTV" });
     }
 
-    const removeAnswers = (idx: number) => {
+    const removeScreens = (idx: number) => {
         if (fields.length <= 1) {
             toast.error("Este é o mínimo de telas")
             return
         }
         remove(idx)
     }
+
     const formatPhone = (phone: string) => {
         return phone.replace(/\D/g, '');
     };
@@ -171,7 +191,7 @@ const ClientForm = () => {
                                             disabled={isSubmitting}
                                             placeholder="exemplo@dominio.com"
                                             {...field}
-                                            value={field.value ? formatToLowerCase(field.value) : ''}
+                                            value={field.value ? formatToLowerCase(field.value) : ""}
                                         />
                                     </FormControl>
                                     <FormMessage className="text-[12px]" />
@@ -294,7 +314,7 @@ const ClientForm = () => {
                         />
                     </div>
                     <div className="my-3">
-                        <Button type="button" onClick={addAnswers}>Adicionar tela</Button>
+                        <Button type="button" onClick={addScreens}>Adicionar tela</Button>
                         {fields.length > 0 && fields.map((field, idx) => (
                             <div key={field.id} className="flex mt-3 items-center justify-center w-full gap-2">
                                 <div className="w-full grid grid-cols-7 gap-2">
@@ -343,7 +363,7 @@ const ClientForm = () => {
                                                     <SelectTrigger className="min-w-[120px]">
                                                         <SelectValue placeholder="PAINEL" />
                                                     </SelectTrigger>
-                                                    <SelectContent {...field}>
+                                                    <SelectContent {...field} className="h-[300px]">
                                                         <SelectItem value="Club - TNM1">Club - TNM1</SelectItem>
                                                         <SelectItem value="P2 Cini - TNM2">P2 Cini - TNM2</SelectItem>
                                                         <SelectItem value="UniPlay - TNM3">UniPlay - TNM3</SelectItem>
@@ -357,6 +377,7 @@ const ClientForm = () => {
                                                         <SelectItem value="Bit - TNMP2">Bit - TNMP2</SelectItem>
                                                         <SelectItem value="Seven - TNMI1">Seven - TNMI1</SelectItem>
                                                         <SelectItem value="Mega - TNMI2">Mega - TNMI2</SelectItem>
+                                                        <SelectItem value="Outro">Outro</SelectItem>
                                                     </SelectContent>
                                                 </Select>
                                                 <FormMessage className="text-[12px]" />
@@ -374,6 +395,7 @@ const ClientForm = () => {
                                                         disabled={isSubmitting}
                                                         placeholder={`usuário`}
                                                         {...field}
+                                                        value={removeSpaces(field.value || "") || ""}
                                                     />
                                                 </FormControl>
                                                 <FormMessage className="text-[12px]" />
@@ -386,10 +408,10 @@ const ClientForm = () => {
                                         render={({ field }) => (
                                             <FormItem>
                                                 <Select onValueChange={field.onChange} value={field.value}>
-                                                    <SelectTrigger className="min-w-[120px]">
+                                                    <SelectTrigger className="min-w-[120px] ">
                                                         <SelectValue placeholder="APP" />
                                                     </SelectTrigger>
-                                                    <SelectContent {...field}>
+                                                    <SelectContent {...field} className="h-[300px]">
                                                         <SelectItem value="BAY TV">BAY TV</SelectItem>
                                                         <SelectItem value="BOB PLAYER">BOB PLAYER</SelectItem>
                                                         <SelectItem value="CAP PLAYER">CAP PLAYER</SelectItem>
@@ -429,6 +451,7 @@ const ClientForm = () => {
                                                         disabled={isSubmitting}
                                                         placeholder={"MAC - EMAIL"}
                                                         {...field}
+                                                        value={removeSpaces(field.value || "") || ""}
                                                     />
                                                 </FormControl>
                                                 <FormMessage className="text-[12px]" />
@@ -446,6 +469,7 @@ const ClientForm = () => {
                                                         disabled={isSubmitting}
                                                         placeholder={"KEY - SENHA"}
                                                         {...field}
+                                                        value={removeSpaces(field.value || "") || ""}
                                                     />
                                                 </FormControl>
                                                 <FormMessage className="text-[12px]" />
@@ -453,7 +477,7 @@ const ClientForm = () => {
                                         )}
                                     />
                                 </div>
-                                <Button title="Excluir" variant={"destructive"} type="button" onClick={() => removeAnswers(idx)}>
+                                <Button title="Excluir" variant={"destructive"} type="button" onClick={() => removeScreens(idx)}>
                                     <Trash />
                                 </Button>
                             </div>
@@ -484,7 +508,11 @@ const ClientForm = () => {
                             variant={"default"}
                             disabled={!isValid || isSubmitting || isSaving}
                         >
-                            {isSaving ? <Loader className="animate-spin" /> : "Salvar"}
+                            {isSaving ?
+                                <span className="flex items-center gap-2">Salvando <Loader className="animate-spin" /></span>
+                                :
+                                <span className="flex items-center gap-2">Salvar</span>
+                            }
                         </Button>
                     </div>
                 </form>

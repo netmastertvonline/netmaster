@@ -14,14 +14,13 @@ import Link from 'next/link'
 import Paginate from '@/components/Paginate'
 import { Button } from '@/components/ui/button'
 import formatName from '@/lib/formatName'
-import formatDate from '@/lib/formatDate'
 import { Badge } from "@/components/ui/badge"
-import formatNextMonth from '@/lib/format-next-month'
-import { User } from '@/app/types/user'
+import { Screen, Subscription, User } from '@prisma/client'
+import normalizeDate from '@/lib/normalizeDate'
 
 
 interface ClientsTableProps {
-    clients: User[];
+    clients: (User & { subscription: (Subscription & { screens: Screen[] })[] })[];
 }
 
 const ClientsTable = ({ clients }: ClientsTableProps) => {
@@ -52,11 +51,11 @@ const ClientsTable = ({ clients }: ClientsTableProps) => {
                             <TableRow key={client?.id}>
                                 <TableCell className="font-bold text-sm">{formatName(client.name)}</TableCell>
                                 <TableCell className='text-center'>{client.phone}</TableCell>
-                                <TableCell className='text-center'>{client.plan_type}</TableCell>
-                                <TableCell className='text-center'>{client.screens.length}</TableCell>
-                                <TableCell className='text-center'>{client.plan_value ? <Badge variant={"outline"} className='bg-green-400' >Pago</Badge> : <Badge variant={"outline"} className='bg-red-600 text-white'>Em aberto</Badge>}</TableCell>
-                                <TableCell className='text-center'>{formatDate(client.contracting_plan)}</TableCell>
-                                <TableCell className='text-center'>{formatNextMonth(client.contracting_plan)}</TableCell>
+                                <TableCell className='text-center'>{client?.subscription ? client?.subscription[0]?.plan_type : null}</TableCell>
+                                <TableCell className='text-center'>{client?.subscription ? client?.subscription[0]?.screens.length : "0"}</TableCell>
+                                <TableCell className='text-center'>{client?.subscription ? <Badge variant={"outline"} className='bg-green-400' >Pago</Badge> : <Badge variant={"outline"} className='bg-red-600 text-white'>Em aberto</Badge>}</TableCell>
+                                <TableCell className='text-center'>{client?.subscription ? normalizeDate(client?.subscription[0]?.contracting_plan || "") : null}</TableCell>
+                                <TableCell className='text-center'>{client?.subscription ? normalizeDate(client?.subscription[0]?.expiration_plan || "") : null}</TableCell>
                                 <TableCell className='text-center'>
                                     <Button className='px-2' variant={"ghost"}>
                                         <Link href={`/employees/sales/clients/edit/${client.id}`}>

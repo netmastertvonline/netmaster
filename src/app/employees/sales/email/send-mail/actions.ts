@@ -1,7 +1,7 @@
 "use server"
 
 import { prisma } from "@/app/services/database/db"
-import { User } from "@prisma/client"
+import { User } from "@/app/types/user"
 import nodemailer from "nodemailer"
 
 export async function getTestTNM2() {
@@ -20,7 +20,6 @@ export async function getTestTNM2() {
         body: JSON.stringify(data)
     })
     const resp = await res.json()
-
     return resp
 }
 
@@ -34,7 +33,6 @@ export async function getTestTNM7() {
         },
     })
     const resp = await res.json()
-
     return resp
 }
 
@@ -54,7 +52,6 @@ export async function getTestTNMI1() {
         body: JSON.stringify(data)
     })
     const resp = await res.json()
-
     return resp
 }
 
@@ -62,7 +59,7 @@ export async function checkUserTNM2(values: { email: string }) {
     const { email } = values
 
     try {
-        const user = await prisma.user.findUnique({
+        const user = await prisma.user.findFirst({
             where: {
                 email,
                 default_list: true,
