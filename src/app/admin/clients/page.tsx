@@ -5,18 +5,15 @@ import { Button } from '@/components/ui/button'
 import { Metadata } from 'next'
 import Link from 'next/link'
 import React from 'react'
-import { getAllUsers } from './actions'
 import { Screen, Subscription, User } from '@prisma/client'
 
 export const metadata: Metadata = {
     title: "Vendas - Clientes",
 };
 
-// const clients: User | [] = [];
+const clients: User | [] = [];
 
-const ClientsSalesPage = async () => {
-    const clients = await getAllUsers();
-    
+const ClientsSalesPage = async () => {    
     return (
         <div className='p-5 w-full h-full'>
             <TitleH1Sales text='Clientes' className='mb-5' />
