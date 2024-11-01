@@ -26,9 +26,10 @@ import { Loader, Trash } from "lucide-react";
 import { todayDate } from "@/lib/today-date";
 import Editor from "@/components/Editor";
 import { formatToLowerCase } from "@/lib/format-to-lowercase";
-import { createUser } from "@/app/employees/sales/clients/actions";
+import { createUser, updateUser } from "@/app/employees/sales/clients/actions";
 import { Screen, Subscription, User } from "@prisma/client";
 import removeSpaces from "@/lib/remove-spaces";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
     name: z.string().min(1, {
@@ -64,6 +65,7 @@ interface ClientFormProps {
 const ClientForm = ({ client }: ClientFormProps) => {    
     const [isSaving, setIsSaving] = useState(false)
     const today = todayDate()    
+    const router = useRouter()
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -85,6 +87,7 @@ const ClientForm = ({ client }: ClientFormProps) => {
                 mac_address: screen?.mac_address || "",
                 app_key: screen?.app_key || ""
             })) || [{ screen_name: "Tela 1", system_type: "IPTV" }],
+            notes: client?.subscription[0]?.notes || ""
         },
     });
 
@@ -119,11 +122,20 @@ const ClientForm = ({ client }: ClientFormProps) => {
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         setIsSaving(true)
+        let res;
         try {
-            const res = await createUser(values as unknown as User)
-            if (res.status = 201) {
-                toast.success(res.message)
-                form.reset()
+            if (client) {
+                res = await updateUser(values as unknown as User, client.id as string)
+                if (res.status = 200) {
+                    toast.success(res.message)
+                    router.replace('/employees/sales/clients')
+                }
+            }else{
+                res = await createUser(values as unknown as User)
+                if (res.status = 201) {
+                    toast.success(res.message)
+                    form.reset()
+                }
             }
         } catch (error) {
             console.log(error);
@@ -509,9 +521,9 @@ const ClientForm = ({ client }: ClientFormProps) => {
                             disabled={!isValid || isSubmitting || isSaving}
                         >
                             {isSaving ?
-                                <span className="flex items-center gap-2">Salvando <Loader className="animate-spin" /></span>
+                                <span className="flex items-center gap-2">{client ? "Atualizando" : "Salvar" } <Loader className="animate-spin" /></span>
                                 :
-                                <span className="flex items-center gap-2">Salvar</span>
+                                <span className="flex items-center gap-2">{client ? "Atualizar" : "Salvar" }</span>
                             }
                         </Button>
                     </div>

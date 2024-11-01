@@ -13,19 +13,14 @@ import {
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Loader } from "lucide-react";
-import { searchUser } from "@/app/employees/sales/clients/actions";
 
 const formSchema = z.object({
     query: z.string().min(2, {
-        message: "Por favor, digite o nome, telefone, ou usuário.",
+        message: "Por favor, digite o telefone.",
     }),
 });
 
-const SearchClientForm = () => {
-    const [isSearching, setIsSearching] = useState(false)
-
+const SearchWhatsAppForm = () => {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -33,26 +28,26 @@ const SearchClientForm = () => {
         },
     });
 
-    const { isSubmitting, isValid } = form.formState;
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
-    const onSubmit = async (values: z.infer<typeof formSchema>) => {
-        setIsSearching(true)
-        try {
-            const res = await searchUser(values?.query as string)
-            toast.success("Cliente encontrado com sucesso")
-            return res;
-        } catch (error) {
-            toast.error("Ocorreu um erro inesperado")
-            console.log(error);
+    const handleInputChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+        const query = event.target.value;
+        if (query.length >= 2) {
+            setIsSubmitting(true);
+            try {
+                toast.success("Mensagens encontradas com sucesso");
+            } catch (error) {
+                toast.error("Ocorreu um erro inesperado");
+                console.log(error);
+            }
+            setIsSubmitting(false);
         }
-        setIsSearching(false)
     };
 
     return (
         <div className="w-full">
             <Form {...form}>
                 <form
-                    onSubmit={form.handleSubmit(onSubmit)}
                     className="flex gap-1 w-full"
                 >
                     <FormField
@@ -65,26 +60,22 @@ const SearchClientForm = () => {
                                         className="border"
                                         type="text"
                                         disabled={isSubmitting}
-                                        placeholder="nome, telefone, ou usuário"
+                                        placeholder="pix"
                                         {...field}
+                                        onChange={(e) => {
+                                            field.onChange(e);
+                                            handleInputChange(e);
+                                        }}
                                     />
                                 </FormControl>
                                 <FormMessage className="text-[12px]" />
                             </FormItem>
                         )}
                     />
-                    <Button
-                        className="w-fit"
-                        type={"submit"}
-                        variant={"outline"}
-                        disabled={!isValid || isSubmitting || isSearching}
-                    >
-                        {isSearching ? <span className="flex gap-2 justify-center items-center"> Buscando <Loader className="animate-spin" /></span> : "Buscar cliente"}
-                    </Button>
                 </form>
             </Form>
         </div>
     );
 };
 
-export default SearchClientForm;
+export default SearchWhatsAppForm;

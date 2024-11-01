@@ -16,7 +16,7 @@ const GroupSalesLink = () => {
       <AsideSalesLink active={checkPathname(pathname, "/employees/sales/services")} path="/employees/sales/services" icon={<List /> }>Atendimento</AsideSalesLink>
       <AsideSalesLink active={checkPathname(pathname, "/employees/sales/lists")} path="/employees/sales/lists" icon={<Tv /> }>Listas</AsideSalesLink>
       <AsideSalesLink active={checkPathname(pathname, "/employees/sales/help")} path="/employees/sales/help" icon={<HandHelping /> }>Ajuda</AsideSalesLink>
-      <AsideSalesLink active={checkPathname(pathname, "/employees/sales/email")} path="/employees/sales/email" icon={<AtSign /> }>Email</AsideSalesLink>
+      <AsideSalesLink active={checkPathname(pathname, "/employees/sales/email")} path="/employees/sales/email" icon={<AtSign /> }>Emails</AsideSalesLink>
     </AsideItemCol>  
   );
 };

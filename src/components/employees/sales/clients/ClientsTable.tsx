@@ -25,7 +25,7 @@ interface ClientsTableProps {
 
 const ClientsTable = ({ clients }: ClientsTableProps) => {
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 10;
+    const itemsPerPage = 7;
     const lastIndex = currentPage * itemsPerPage;
     const firstIndex = lastIndex - itemsPerPage;
     const currentItem = clients.slice(firstIndex, lastIndex);
@@ -68,7 +68,7 @@ const ClientsTable = ({ clients }: ClientsTableProps) => {
                     </TableBody>
                 </Table>
             </div>
-            {clients.length > 10 && (
+            {clients.length > 5 && (
                 <div className='flex mt-10 items-center justify-center'>
                     <Paginate itemsToPaginate={clients} itemsPerPage={itemsPerPage} currentPage={currentPage} setCurrentPage={setCurrentPage} firstIndex={firstIndex} />
                 </div>
