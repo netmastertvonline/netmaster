@@ -20,7 +20,7 @@ const Actions: React.FC<ActionsProps> = ({ whatsApp, swal }) => {
     setIsToggleWhatsApp(true)
     try {
       const res = await toggleStatusWhatsApp(id)
-      if (res.ok) {
+      if (res.status === 200) {
         toast.success(res?.message)
       }
     } catch (error) {
