@@ -102,16 +102,13 @@ export async function sendEmail(email: string, firstname: string, res: MyTest, u
 
     try {
         const message = `
-                        <div style="border:0; cellspacing:0; cellpadding:0; width:100%; text-align:center;">
+                       <div style="border:0; cellspacing:0; cellpadding:0; width:100%; text-align:center;">
     <table align="center" border="0" cellpadding="0" cellspacing="0" style="background-color:#fff; max-width:600px; margin:0 auto; padding-bottom:20px">
         <tbody>
-            <tr align="center" style="margin:0 auto">
-                <td><img alt="Bem vindo!" border="0" src="https://netmastertvonline.com/wp-content/uploads/2022/10/series.png" class="CToWUd" data-bit="iit"></td>
-            </tr>
             <tr>
                 <td style="padding:0; font-family:Arial,sans-serif; text-align:center; line-height:1.5em; font-size:1.5em; color:#333; font-weight:200;">
-                    <p style="margin:30px 50px; text-align:center;"><strong>${firstname}</strong>, Seja bem vindo(a) <strong>Netmaster TV Online</strong><br></p>
-                    <p style="margin:10px 50px; text-align:center">Aqui está o seu teste com duração de 3 horas, <b>APROVEITE</b>!</p>
+                    <p style="margin:30px 50px; text-align:center;"><strong>${firstname}</strong>, Seja bem vindo(a) <strong>Netmaster</strong><br></p>
+                    <p style="margin:10px 50px; text-align:center">Duração de 3 horas, <b>APROVEITE</b>!</p>
                 </td>
             </tr>
             <tr>
@@ -138,23 +135,23 @@ export async function sendEmail(email: string, firstname: string, res: MyTest, u
                                 <td style="padding:10px; font-family:Arial,sans-serif; text-align:left; color:#333; font-weight:600;">${res?.senha_teste}</td>
                             </tr>
                             ${urls.map((url, index) => (
-                                `<tr>
+            `<tr>
                                     <td style="padding:10px; font-family:Arial,sans-serif; text-align:left; color:#333; font-weight:600;">Url ${index + 1}</td>
                                     <td style="padding:10px; font-family:Arial,sans-serif; text-align:left; color:#333; font-weight:600;">${url}</td>
                                 </tr>`
-                            ))}
-                            ${dns && dns?.length > 0 ? 
-                                `<tr>
+        ))}
+                            ${dns && dns?.length > 0 ?
+                `<tr>
                                     <td style="padding:10px; font-family:Arial,sans-serif; text-align:left; color:#333; font-weight:600;">DNS para aplicativos</td>
                                     <td style="padding:10px; font-family:Arial,sans-serif; text-align:left; color:#333; font-weight:600;">STB, SMARTUP, IPTV PORTAL</td>
                                 </tr>
                                 ${dns?.map((d, index) => (
-                                    `<tr>
+                    `<tr>
                                         <td style="padding:10px; font-family:Arial,sans-serif; text-align:left; color:#333; font-weight:600;">DNS ${index + 1}</td>
                                         <td style="padding:10px; font-family:Arial,sans-serif; text-align:left; color:#333; font-weight:600;">${d}</td>
                                     </tr>`
-                                ))}`
-                            : ''}
+                ))}`
+                : ''}
                         </tbody>
                     </table>
                 </td>
@@ -166,101 +163,13 @@ export async function sendEmail(email: string, firstname: string, res: MyTest, u
                 <td style="padding:0; font-family:Arial,sans-serif; text-align:center; line-height:1.5em; font-size:1.5em; color:#333; font-weight:200;">
                     <div style="margin:30px 50px; text-align:center;">
                         <strong style="font-size:0.8em;">Atenção para pagamento, Ativação e Renovação</strong>
-                        <p style="margin-top:10px;">Enviar login e Comprovante para o nosso suporte, não enviamos dados de acesso via whatsapp, somente email ou chat online pelo suporte do site</p>
+                        <p style="margin-top:10px;">Enviar login e Comprovante para o nosso suporte, não enviamos dados de acesso via whatsapp, <b>somente</b> email ou chat online pelo suporte do site</p>
                     </div>
                     <div style="margin:10px 50px; text-align:center; font-size:0.8em;">
                         <p style="margin-bottom:10px;">Suporte Chat > <a href="https://suportemil.com" target="_blank" style="color:#007bff; text-decoration:underline;">suportemil.com</a></p>
-                        <p style="margin-bottom:10px;">e-mail para contato > <a href="mailto:contatonetmastertv@gmail.com" style="color:#007bff; text-decoration:underline;">contatonetmastertv@gmail.com</a></p>
+                        <p style="margin-bottom:10px;">Planos > <a href="https://suportemil.com/planos" target="_blank" style="color:#007bff; text-decoration:underline;">Acessar Planos</a></p>
                         <p style="margin-bottom:10px;">Comunidade no WhatsApp <a href="https://chat.whatsapp.com/Lqv0ZmeYKiM0tJrS5FsUbn" target="_blank" style="color:#007bff; text-decoration:underline;">https://chat.whatsapp.com/Lqv0ZmeYKiM0tJrS5FsUbn</a></p>
                     </div>
-                </td>
-            </tr>
-            <tr>
-                <td style="padding:0; font-family:Arial,sans-serif; text-align:center; line-height:1.5em; font-size:1.5em; color:#333; font-weight:200;">
-                    <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin:0 auto; border-collapse:collapse;">
-                        <tbody>
-                            <tr>
-                                <td colspan="2" style="background-color:#a30607; color:#ffffff; font-family:sans-serif; font-size:14px; line-height:40px; margin-bottom:10px; text-align:center; text-decoration:none; width:100%; font-weight:600; border:1px solid #ddd;">PLANOS NA PROMOÇÃO</td>
-                            </tr>
-                            <tr>
-                                <td style="padding:10px; font-family:Arial,sans-serif; text-align:left; color:#333; font-weight:600; border:1px solid #ddd;">Plano 1 tela Na Promoção</td>
-                                <td style="padding:10px; font-family:Arial,sans-serif; text-align:left; color:#333; font-weight:600; border:1px solid #ddd;">Mensal 35 por 29,99</td>
-                            </tr>
-                            <tr>
-                                <td style="padding:10px; font-family:Arial,sans-serif; text-align:left; color:#333; font-weight:600; border:1px solid #ddd;">Trimestral</td>
-                                <td style="padding:10px; font-family:Arial,sans-serif; text-align:left; color:#333; font-weight:600; border:1px solid #ddd;">90 por 79,99</td>
-                            </tr>
-                            <tr>
-                                <td style="padding:10px; font-family:Arial,sans-serif; text-align:left; color:#333; font-weight:600; border:1px solid #ddd;">Semestral</td>
-                                <td style="padding:10px; font-family:Arial,sans-serif; text-align:left; color:#333; font-weight:600; border:1px solid #ddd;">180 por 154,99</td>
-                            </tr>
-                            <tr>
-                                <td style="padding:10px; font-family:Arial,sans-serif; text-align:left; color:#333; font-weight:600; border:1px solid #ddd;">Anual</td>
-                                <td style="padding:10px; font-family:Arial,sans-serif; text-align:left; color:#333; font-weight:600; border:1px solid #ddd;">360 por 239,99</td>
-                            </tr>
-                            <tr>
-                                <td style="padding:10px; font-family:Arial,sans-serif; text-align:left; color:#333; font-weight:600; border:1px solid #ddd;">Planos Padrão 2 tela Promocional</td>
-                                <td style="padding:10px; font-family:Arial,sans-serif; text-align:left; color:#333; font-weight:600; border:1px solid #ddd;">Mensal 49,99</td>
-                            </tr>
-                            <tr>
-                                <td style="padding:10px; font-family:Arial,sans-serif; text-align:left; color:#333; font-weight:600; border:1px solid #ddd;">Trimestral</td>
-                                <td style="padding:10px; font-family:Arial,sans-serif; text-align:left; color:#333; font-weight:600; border:1px solid #ddd;">129,99</td>
-                            </tr>
-                            <tr>
-                                <td style="padding:10px; font-family:Arial,sans-serif; text-align:left; color:#333; font-weight:600; border:1px solid #ddd;">Semestral</td>
-                                <td style="padding:10px; font-family:Arial,sans-serif; text-align:left; color:#333; font-weight:600; border:1px solid #ddd;">254,99</td>
-                            </tr>
-                            <tr>
-                                <td style="padding:10px; font-family:Arial,sans-serif; text-align:left; color:#333; font-weight:600; border:1px solid #ddd;">Anual</td>
-                                <td style="padding:10px; font-family:Arial,sans-serif; text-align:left; color:#333; font-weight:600; border:1px solid #ddd;">479,99</td>
-                            </tr>
-                            <tr>
-                                <td style="padding:10px; font-family:Arial,sans-serif; text-align:left; color:#333; font-weight:600; border:1px solid #ddd;">Premium</td>
-                                <td style="padding:10px; font-family:Arial,sans-serif; text-align:left; color:#333; font-weight:600; border:1px solid #ddd;">35,99 ( Maior qualidade em canais ao vivo)</td>
-                            </tr>
-                            <tr>
-                                <td style="padding:10px; font-family:Arial,sans-serif; text-align:left; color:#333; font-weight:600; border:1px solid #ddd;">Pro</td>
-                                <td style="padding:10px; font-family:Arial,sans-serif; text-align:left; color:#333; font-weight:600; border:1px solid #ddd;">39,99 ( Recomendado) 2 lista diferentes na mesma Tv</td>
-                            </tr>
-                            
-                        </tbody>
-                    </table>
-                </td>
-            </tr>
-            <tr>
-                <td style="padding:10px 0; font-family:Arial,sans-serif; text-align:center; line-height:1.5em; font-size:1.5em; color:#333; font-weight:200; ">
-                    <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin:0 auto; border-collapse:collapse;">
-                        <tbody>
-                            <tr>
-                                <td style="padding:10px; font-family:Arial,sans-serif; text-align:left; color:#333; font-weight:600; border:1px solid #ddd;">ATENÇÃO, PROMOÇÃO VÁLIDA POR TEMPO LIMITADO, Aproveite essa oportunidade !</td>
-                            </tr>
-                            <tr>
-                                <td style="padding:10px; font-family:Arial,sans-serif; text-align:left; color:#333; font-weight:600; border:1px solid #ddd;">Após efetuar o pagamento é só enviar o comprovante aqui  que ativamos😃</td>
-                            </tr>
-                            <tr>
-                                <td style="padding:10px; font-family:Arial,sans-serif; text-align:left; color:#333; font-weight:600; border:1px solid #ddd;">DADOS PARA PAGAMENTO PIX Celuar ou CNPJ</td>
-                            </tr>
-                            <tr>
-                                <td style="padding:10px; font-family:Arial,sans-serif; text-align:left; color:#333; font-weight:600; border:1px solid #ddd;">🏦 BANCO Mercado Pago</td>
-                            </tr>
-                            <tr>
-                                <td style="padding:10px; font-family:Arial,sans-serif; text-align:left; color:#333; font-weight:600; border:1px solid #ddd;">🔘 NOME : Infocus NetMaster Jonatan Carvalho</td>
-                            </tr>
-                            <tr>
-                                <td style="padding:10px; font-family:Arial,sans-serif; text-align:left; color:#333; font-weight:600; border:1px solid #ddd;">🔰 CNPJ: 56928820000100</td>
-                            </tr>
-                            <tr>
-                                <td style="padding:10px; font-family:Arial,sans-serif; text-align:left; color:#333; font-weight:600; border:1px solid #ddd;">📱 41991828568</td>
-                            </tr>
-                            <tr>
-                                <td style="padding:10px; font-family:Arial,sans-serif; text-align:left; color:#333; font-weight:600; border:1px solid #ddd;">*Verifique se possui a licença Anual do seu aplicativo* pois o pagamento do app é a parte da lista Mensal, sendo o pagamento único</td>
-                            </tr>
-                            <tr>
-                                <td style="padding:10px; font-family:Arial,sans-serif; text-align:left; color:#333; font-weight:600; border:1px solid #ddd;">*pagamentos via paypal ou cartão possui pequena taxa, consultar*</td>
-                            </tr>
-                            
-                        </tbody>
-                    </table>
                 </td>
             </tr>
             <tr>
@@ -278,7 +187,7 @@ export async function sendEmail(email: string, firstname: string, res: MyTest, u
             </tr>
             <tr>
                 <td style="text-align:center; padding-top:40px; padding-bottom:40px">
-                    <a href="https://netmastertvonline.com" target="_blank" style="text-decoration:none">
+                    <a href="https://suportemil.com" target="_blank" style="text-decoration:none">
                         <button style="background-color:#4CAF50; color:white; padding:15px 32px; text-align:center; text-decoration:none; display:inline-block; font-size:16px; margin:4px 2px; cursor:pointer; border-radius:0px; border:2px solid #4CAF50; transition:0.2s; transform:translateY(4px);">VISITAR SITE</button>
                     </a>
                 </td>
@@ -337,7 +246,7 @@ export async function sendEmail(email: string, firstname: string, res: MyTest, u
         });
 
         const mailOptions = {
-            from: "Netmaster TV Online <contatonetmastertvonline@gmail.com>",
+            from: "Netmaster TV Online <noreply2053@gmail.com>",
             to: email,
             subject: "Teste IPTV",
             html: message
