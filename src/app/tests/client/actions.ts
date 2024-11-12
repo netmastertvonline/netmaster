@@ -246,7 +246,7 @@ export async function sendEmail(email: string, firstname: string, res: MyTest, u
         });
 
         const mailOptions = {
-            from: "Netmaster TV Online <noreply2053@gmail.com>",
+            from: "Netmaster <noreply2053@gmail.com>",
             to: email,
             subject: "Teste IPTV",
             html: message
