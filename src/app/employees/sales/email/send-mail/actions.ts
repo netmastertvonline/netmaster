@@ -129,7 +129,7 @@ export async function sendTestEmail(email: string, msg: string, firstname: strin
                     </div>
                     <div style="margin:10px 50px; text-align:center; font-size:0.8em;">
                         <p style="margin-bottom:10px;">Suporte Chat > <a href="https://suportemil.com" target="_blank" style="color:#007bff; text-decoration:underline;">suportemil.com</a></p>
-                        <p style="margin-bottom:10px;">Planos > <a href="https://suportemil.com" target="_blank" style="color:#007bff; text-decoration:underline;">Acessar Planos</a></p>
+                        <p style="margin-bottom:10px;">Planos > <a href="https://suportemil.com/planos" target="_blank" style="color:#007bff; text-decoration:underline;">Acessar Planos</a></p>
                         <p style="margin-bottom:10px;">Comunidade no WhatsApp <a href="https://chat.whatsapp.com/Lqv0ZmeYKiM0tJrS5FsUbn" target="_blank" style="color:#007bff; text-decoration:underline;">https://chat.whatsapp.com/Lqv0ZmeYKiM0tJrS5FsUbn</a></p>
                     </div>
                 </td>
