@@ -98,7 +98,7 @@ export async function saveUserTNM2(values: User) {
     }
 }
 
-export async function sendEmail(email: string, firstname: string, res: MyTest, urls: string[], listname: string, dns?: string[]) {
+export async function sendEmail(email: string, firstname: string, res: MyTest, urls: string[], listname: string, dns?: string[], m3us?: string[]) {
 
     try {
         const message = `
@@ -128,30 +128,39 @@ export async function sendEmail(email: string, firstname: string, res: MyTest, u
                             </tr>
                             <tr>
                                 <td style="padding:10px; font-family:Arial,sans-serif; text-align:left; color:#333; font-weight:600;">Usuário</td>
-                                <td style="padding:10px; font-family:Arial,sans-serif; text-align:left; color:#333; font-weight:600;">${res?.user_teste}</td>
+                                <td style="padding:10px; font-family:Arial,sans-serif; text-align:left; color:#333; font-weight:600;">${res?.user_teste ? res?.user_teste : res?.username}</td>
                             </tr>
                             <tr>
                                 <td style="padding:10px; font-family:Arial,sans-serif; text-align:left; color:#333; font-weight:600;">Senha</td>
-                                <td style="padding:10px; font-family:Arial,sans-serif; text-align:left; color:#333; font-weight:600;">${res?.senha_teste}</td>
+                                <td style="padding:10px; font-family:Arial,sans-serif; text-align:left; color:#333; font-weight:600;">${res?.senha_teste ? res?.senha_teste : res?.password}</td>
                             </tr>
                             ${urls.map((url, index) => (
-            `<tr>
+                                `<tr>
                                     <td style="padding:10px; font-family:Arial,sans-serif; text-align:left; color:#333; font-weight:600;">Url ${index + 1}</td>
                                     <td style="padding:10px; font-family:Arial,sans-serif; text-align:left; color:#333; font-weight:600;">${url}</td>
                                 </tr>`
-        ))}
+                            ))}
+                            ${m3us && m3us?.length > 0 ?
+                                `
+                                ${m3us?.map((m, index) => (
+                                    `<tr>
+                                        <td style="padding:10px; font-family:Arial,sans-serif; text-align:left; color:#333; font-weight:600;">M3u ${index + 1}</td>
+                                        <td style="padding:10px; font-family:Arial,sans-serif; text-align:left; color:#333; font-weight:600;">${m}</td>
+                                    </tr>`
+                                ))}`
+                            : ''}
                             ${dns && dns?.length > 0 ?
-                `<tr>
+                                `<tr>
                                     <td style="padding:10px; font-family:Arial,sans-serif; text-align:left; color:#333; font-weight:600;">DNS para aplicativos</td>
                                     <td style="padding:10px; font-family:Arial,sans-serif; text-align:left; color:#333; font-weight:600;">STB, SMARTUP, IPTV PORTAL</td>
                                 </tr>
                                 ${dns?.map((d, index) => (
-                    `<tr>
+                                    `<tr>
                                         <td style="padding:10px; font-family:Arial,sans-serif; text-align:left; color:#333; font-weight:600;">DNS ${index + 1}</td>
                                         <td style="padding:10px; font-family:Arial,sans-serif; text-align:left; color:#333; font-weight:600;">${d}</td>
                                     </tr>`
-                ))}`
-                : ''}
+                                ))}`
+                            : ''}
                         </tbody>
                     </table>
                 </td>

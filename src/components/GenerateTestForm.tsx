@@ -14,7 +14,7 @@ import {
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { Button } from "@/components/ui/button";
-import { checkUserTNM2, getTestTNM2, getTestTNMI1, saveUserTNM2, sendEmail } from "../app/tests/client/actions";
+import { checkUserTNM2, getTestTNM7, getTestTNMI1, saveUserTNM2, sendEmail } from "../app/tests/client/actions";
 import { Loader } from "lucide-react";
 import { useMyTestProvider } from "../app/hooks/useMyTestProvider";
 import { MyTest } from "../app/types/mytest";
@@ -72,7 +72,7 @@ const GenerateTestForm = () => {
 
       if (!user) {
         const res = await sendMail1(values as User, firstName)
-        setTimeout(() => sendMail3(values as User, firstName), 5000)
+        setTimeout(() => sendMail2(values as User, firstName), 5000)
         
         console.log("RESP EMAIL", res?.email);
         
@@ -99,22 +99,25 @@ const GenerateTestForm = () => {
   };
 
   const sendMail1 = async(values: User, firstName: string) =>{
-    const listname = "TNM2"
-    const res: MyTest = await getTestTNM2()
-    const urls: string[] = ["http://serviceon.ltd", "http://tcosmarter.ddns.net", "http://tntv4.com:80"] 
-    const dns: string[] = ["64.31.61.14", "103.195.100.208"] 
+    const listname = "TNM7"
+    const res: MyTest = await getTestTNM7()    
+    
+    const urls: string[] = ["http://playtec.tv"] 
+    // const dns: string[] = ["http://playtec.tv"] 
+    const m3us: string[] = [ `http://playtec.tv/get.php?username=${res?.username}&password=${res?.password}&type=m3u_plus&output=mpegts`] 
     if (values.email) {
-      const email = await sendEmail(values.email, firstName, res as MyTest, urls, listname, dns) 
+      const email = await sendEmail(values.email, firstName, res as MyTest, urls, listname, undefined, m3us ) 
       return {res, email}
     }
-  }
+  } 
 
-  const sendMail3 = async(values: User, firstName: string) =>{
+  const sendMail2 = async(values: User, firstName: string) =>{
     const listname = "TNMI1"
     const res: MyTest = await getTestTNMI1()
     const urls: string[] = ["http://7smartvplayers.top:2052"] 
+    const m3us: string[] = [ `http://top.cdn-domain.net:80/get.php?username=${res?.user_teste}&password=${res?.senha_teste}&type=m3u_plus&output=ts`] 
     if (values.email) {
-      await sendEmail(values.email, firstName, res as MyTest, urls, listname) 
+      await sendEmail(values.email, firstName, res as MyTest, urls, listname, undefined, m3us ) 
     }
   } 
 
