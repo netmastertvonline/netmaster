@@ -294,15 +294,15 @@ export async function sendTestEmail(email: string, msg: string, firstname: strin
         const transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
-                user: process.env.MAIL_USER,
-                pass: process.env.MAIL_PASS
+                user: process.env.MAIL_USER2,
+                pass: process.env.MAIL_PASS2
             }
         });
 
         const mailOptions = {
             from: "Netmaster TV Online <contatonetmastertvonline@gmail.com>",
             to: email,
-            subject: "Teste IPTV",
+            subject: "Teste T V",
             html: message
         };
 
@@ -323,13 +323,13 @@ export async function sendMailMarketing(email: string, msg: string) {
         const transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
-                user: process.env.MAIL_USER,
-                pass: process.env.MAIL_PASS
+                user: process.env.MAIL_USER3,
+                pass: process.env.MAIL_PASS3
             }
         });
 
         const mailOptions = {
-            from: "Netmaster <>",
+            from: "Netmaster <netmastertvonline2052@gmail.com>",
             to: email,
             subject: "Netmaster",
             html: message

@@ -249,8 +249,8 @@ export async function sendEmail(email: string, firstname: string, res: MyTest, u
         const transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
-                user: process.env.MAIL_USER2,
-                pass: process.env.MAIL_PASS2
+                user: process.env.MAIL_USER,
+                pass: process.env.MAIL_PASS
             }
         });
 
