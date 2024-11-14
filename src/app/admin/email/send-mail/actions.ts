@@ -314,3 +314,32 @@ export async function sendTestEmail(email: string, msg: string, firstname: strin
         return { message: { type: "error", data: "Aconteceu um erro inesperado" } };
     }
 }
+
+export async function sendMailMarketing(email: string, msg: string) {
+
+    try {
+        const message = msg
+
+        const transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: process.env.MAIL_USER2,
+                pass: process.env.MAIL_PASS2
+            }
+        });
+
+        const mailOptions = {
+            from: "Netmaster <netmastertvonline2050@gmail.com>",
+            to: email,
+            subject: "Netmaster",
+            html: message
+        };
+
+        await transporter.sendMail(mailOptions);
+
+        return { message: { type: "success", data: "Email enviado com sucesso", } };
+    } catch (error) {
+        console.error("Aconteceu um erro inesperado", error);
+        return { message: { type: "error", data: "Aconteceu um erro inesperado" } };
+    }
+}
