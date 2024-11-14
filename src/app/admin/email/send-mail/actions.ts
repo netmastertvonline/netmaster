@@ -323,13 +323,13 @@ export async function sendMailMarketing(email: string, msg: string) {
         const transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
-                user: process.env.MAIL_USER2,
-                pass: process.env.MAIL_PASS2
+                user: process.env.MAIL_USER,
+                pass: process.env.MAIL_PASS
             }
         });
 
         const mailOptions = {
-            from: "Netmaster <netmastertvonline2050@gmail.com>",
+            from: "Netmaster <>",
             to: email,
             subject: "Netmaster",
             html: message
