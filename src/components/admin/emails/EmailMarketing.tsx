@@ -47,8 +47,9 @@ const EmailMarketingForm = () => {
         const emailsArray = values.emails
             .split(/\s+/) 
             .map(email => email.trim()) 
-            .filter(email => email !== "");
-
+            .filter(email => email !== "")
+            .filter((email, index, self) => self.indexOf(email) === index);
+            
         try {
             for (let index = 0; index < emailsArray.length; index++) {
                 const email = emailsArray[index];
