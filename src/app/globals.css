@@ -2,8 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  scrollbar-width: 2px;
+}
+html{
+  scrollbar-width: 2px;
+
+}
+
 body {
   font-family: Arial, Helvetica, sans-serif;
+  scrollbar-width: 2px;
 }
 
 @layer utilities {
@@ -91,4 +103,5 @@ body {
   .thini-scroll{
     scrollbar-color: rgb(231, 34, 34) rgb(19, 19, 19);
   }
+  
 }

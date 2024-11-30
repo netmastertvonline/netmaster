@@ -9,11 +9,11 @@ import MessageForm from '@/components/employees/sales/services/messages/MessageF
 const MessageModalProvider = () => {
   const messageModal = useMessageProvider();  
 
-  if (!messageModal.isOpen) return null;
+  if (!messageModal?.isOpen) return null;
 
   return (
-    <div className="absolute flex px-4 justify-center items-center h-full w-full z-[1] backdrop-blur-sm">
-      <div className="relative border dark:border-white bg-white p-6 w-[600px] rounded-lg shadow-lg">
+    <div className="absolute flex overflow-hidden px-4 justify-center items-center h-full w-full z-[1] backdrop-blur-sm">
+      <div className="h-fit overflow-y-auto max-h-[90%] relative border dark:border-white bg-white p-6 w-[600px] rounded-lg shadow-lg">
         <Button
           onClick={() => {
             messageModal.onClose()
@@ -23,9 +23,9 @@ const MessageModalProvider = () => {
         >
           <X className='dark:text-white'/>
         </Button>
-        <>
-          <MessageForm message={messageModal.message} />
-        </>
+        
+        <MessageForm message={messageModal?.message} />
+
       </div>
     </div>
   )

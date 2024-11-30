@@ -2,9 +2,8 @@
 
 import React, { useEffect, useState } from 'react'
 import { Message } from '@/app/types/message'
-import SearchMessageForm from './SearchMessagesForm';
-import CreateMessageButton from './CreateMessageButton';
 import Actions from './Actions';
+import Preview from '@/components/Preview';
 
 interface MessageCardProps {
     messages: Message[];
@@ -25,14 +24,9 @@ const MessageCard = ({ messages }: MessageCardProps) => {
     }, [messages])
 
     return (
-        <div className=''>
-            <div className='grid grid-cols-2 gap-10'>
-                <div className='flex flex-col gap-2 sha'>
-                    <div className='flex gap-2'>
-                        <SearchMessageForm />
-                        <CreateMessageButton />
-                    </div>
-
+        <div className='h-full'>
+            <div className='grid grid-cols-2 gap-10 h-full'>
+                <div className='max-h-[550px] flex flex-col gap-2 overflow-y-auto'>
                     {messages.length > 0 && messages?.map(message => (
                         <div key={message?.id} className={`cursor-pointer border shadow-md rounded-md p-5 gap-2 ${activeMessage === message.id && "bg-red-100 border border-red-700"} `} onClick={() => returnItem(message)}>
                             {message.title}
@@ -49,7 +43,9 @@ const MessageCard = ({ messages }: MessageCardProps) => {
                                 </div>
                             </div>
                             <div className='border-t p-5'>
-                                {message?.message}
+                                <Preview 
+                                    value={message?.message}
+                                />
                             </div>
                         </div>
                     </div>

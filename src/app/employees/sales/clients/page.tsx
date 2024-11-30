@@ -32,7 +32,7 @@ const ClientsSalesPage = async ({ searchParams } : Readonly<SearchParamsProps>) 
             <TitleH1Sales text='Clientes' className='mb-5' />
             <div className='flex justify-between items-start gap-10 w-full '>
                 <div className='w-[800px]'>
-                    <Search />
+                    <Search placeholder='Digite o nome do cliente' />
                 </div>
                 <Link href={'/employees/sales/clients/new-client'}>
                     <Button variant={"default"}>Novo cliente</Button>

@@ -73,3 +73,18 @@ export async function getAllMessages(){
     }
     return
 }
+
+export async function searchMessages(query: string){
+    const res = await fetch(`${baseUrl}/employees/sales/services/messages/results?search_query=${query}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'API-Key': process.env.DATA_API_KEY!,
+        },
+    })
+    if (res.ok) {
+        const messages = await res.json()   
+        return messages 
+    }
+    return
+}

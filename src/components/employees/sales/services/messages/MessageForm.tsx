@@ -16,11 +16,11 @@ import toast from "react-hot-toast";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Loader } from "lucide-react";
-import { Textarea } from "@/components/ui/textarea";
 import { useMessageProvider } from "@/app/hooks/useMessageProvider";
 import { createMessage, updateMessage } from "@/app/employees/sales/services/messages/actions";
 import { Message } from "@/app/types/message";
 import { formatToLowerCase } from "@/lib/format-to-lowercase";
+import Editor from "@/components/Editor";
 
 const formSchema = z.object({
     title: z.string().toLowerCase().min(2, {
@@ -38,11 +38,11 @@ interface MessageFormProps {
 
 const MessageForm = ({ message }: MessageFormProps) => {
     const [isSaving, setIsSaving] = useState(false)
-    const messageModal = useMessageProvider();  
+    const messageModal = useMessageProvider();
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
-        defaultValues:{
+        defaultValues: {
             title: message?.title || "",
             message: message?.message || ""
         }
@@ -50,24 +50,24 @@ const MessageForm = ({ message }: MessageFormProps) => {
 
     const { isSubmitting, isValid } = form.formState;
 
-    const onSubmit = async (values: z.infer<typeof formSchema> ) => {
-        setIsSaving(true)                
+    const onSubmit = async (values: z.infer<typeof formSchema>) => {
+        setIsSaving(true)
         try {
             let res;
 
             if (message) {
                 res = await updateMessage(message?.id, values)
                 console.log("RES", res);
-                
-                if(res?.status === 200){
+
+                if (res?.status === 200) {
                     toast.success(res?.message)
                     form.reset()
                     messageModal.onClose()
                     return
                 }
-            }else{
+            } else {
                 res = await createMessage(values)
-                if(res.status === 201){
+                if (res.status === 201) {
                     toast.success(res?.message)
                     form.reset()
                     messageModal.onClose()
@@ -83,7 +83,7 @@ const MessageForm = ({ message }: MessageFormProps) => {
     };
 
     return (
-        <div className="w-full">
+        <div className="w-full h-fit overflow-y-auto">
             <Form {...form}>
                 <form
                     onSubmit={form.handleSubmit(onSubmit)}
@@ -108,43 +108,42 @@ const MessageForm = ({ message }: MessageFormProps) => {
                             </FormItem>
                         )}
                     />
+
                     <FormField
                         control={form.control}
                         name="message"
                         render={({ field }) => (
                             <FormItem>
                                 <FormLabel className="font-bold text-base">Mensagem:</FormLabel>
-                                <FormControl>
-                                    <Textarea 
-                                        className="resize-none dark:border-primary"
-                                        rows={10}
-                                        disabled={isSubmitting}
+                                <FormControl >
+                                    <Editor
                                         {...field}
+                                        value={field.value || ''}
                                     />
                                 </FormControl>
                                 <FormMessage className="text-[12px]" />
                             </FormItem>
                         )}
                     />
-                    
-                    <div className="my-3">
+
+                    <div className="">
                         <Button
                             className="w-full"
                             type={"submit"}
                             variant={"default"}
                             disabled={!isValid || isSubmitting || isSaving}
                         >
-                            {isSaving ? 
+                            {isSaving ?
                                 <>
-                                    {message ? 
+                                    {message ?
                                         <span className="flex items-center gap-2">Editando <Loader className="animate-spin" /></span>
-                                    :
+                                        :
                                         <span className="flex items-center gap-2">Salvando <Loader className="animate-spin" /></span>
-                                     }
+                                    }
                                 </>
                                 :
                                 <>
-                                    {message ? "Editar": "Salvar" }
+                                    {message ? "Editar" : "Salvar"}
                                 </>
                             }
                         </Button>
