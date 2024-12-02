@@ -40,6 +40,8 @@ const formSchema = z.object({
     custom_link: z.string().optional(),
     status: z.boolean().optional(),
     notes: z.string().optional(),
+    operator: z.string().optional(),
+    message: z.string().optional(),
 });
 
 interface WhatsApptFormProps {
@@ -57,7 +59,9 @@ const WhatsApptForm = ({ whatsApp }: WhatsApptFormProps) => {
             original_link: "",
             phone_type: whatsApp?.phone_type || "sales",
             custom_link: whatsApp?.custom_link || "",
-            notes: whatsApp?.notes || ""
+            notes: whatsApp?.notes || "",
+            operator: whatsApp?.operator || "",
+            message: whatsApp?.message || ""
         }
     });
 
@@ -120,6 +124,44 @@ const WhatsApptForm = ({ whatsApp }: WhatsApptFormProps) => {
                             </FormItem>
                         )}
                     />
+                    <div className="grid grid-cols-2 gap-4">
+                        <FormField
+                            control={form.control}
+                            name="operator"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Atendente:</FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            type="text"
+                                            disabled={isSubmitting}
+                                            placeholder="Nome do atendente"
+                                            {...field}
+                                        />
+                                    </FormControl>
+                                    <FormMessage className="text-[12px]" />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="message"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Mensagem:</FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            type="text"
+                                            disabled={isSubmitting}
+                                            placeholder="Gostaria de informações..."
+                                            {...field}
+                                        />
+                                    </FormControl>
+                                    <FormMessage className="text-[12px]" />
+                                </FormItem>
+                            )}
+                        />
+                    </div>
                     <FormField
                         control={form.control}
                         name={"phone_type"}

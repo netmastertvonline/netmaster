@@ -7,8 +7,10 @@ export async function middleware(request: NextRequest) {
     if (request.nextUrl.pathname.startsWith('/whatsapp/sales')) {
         const urls = await getSalesNumbers()
         const randomNumber: WhatsApp = urls[Math.floor(Math.random() * urls.length)]
+        console.log(randomNumber);
+        
         if (randomNumber) {
-            return NextResponse.redirect(new URL(`https://wa.me/${randomNumber?.phone}`, request.url))
+            return NextResponse.redirect(new URL(`https://wa.me/${randomNumber?.phone}?text=${randomNumber?.message}`, request.url))
         } else {
             return NextResponse.redirect(new URL('https://suportemil.com/', request.url))
         }
@@ -18,7 +20,7 @@ export async function middleware(request: NextRequest) {
         const urls = await getSuportNumbers()
         const randomNumber: WhatsApp = urls[Math.floor(Math.random() * urls.length)]
         if (randomNumber) {
-            return NextResponse.redirect(new URL(`https://wa.me/${randomNumber?.phone}`, request.url))
+            return NextResponse.redirect(new URL(`https://wa.me/${randomNumber?.phone}?text=${randomNumber?.message}`, request.url))
         } else {
             return NextResponse.redirect(new URL('https://suportemil.com/', request.url))
         }

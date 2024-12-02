@@ -28,6 +28,7 @@ const WhatsAppTable = ({ watsApps }: WhatsAppTableProps) => {
                     <TableHeader>
                         <TableRow className='text-left'>
                             <TableHead className="">Numero</TableHead>
+                            <TableHead className='text-center'>Operador</TableHead>
                             <TableHead className='text-center'>Tipo</TableHead>
                             <TableHead className='text-center'>Link Original</TableHead>
                             <TableHead className='text-center'>Link Customizado</TableHead>
@@ -39,6 +40,7 @@ const WhatsAppTable = ({ watsApps }: WhatsAppTableProps) => {
                         {watsApps?.length > 0 && watsApps.map(whatsApp => (
                             <TableRow key={whatsApp.id}>
                                 <TableCell className="font-bold text-sm">{whatsApp?.phone}</TableCell>
+                                <TableCell className="text-center">{whatsApp?.operator}</TableCell>
                                 <TableCell className='text-center'>
                                     {whatsApp?.phone_type === "suport" && "Suporte"}
                                     {whatsApp?.phone_type === "sales" && "Vendas"}

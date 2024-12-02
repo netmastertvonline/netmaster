@@ -135,6 +135,8 @@ model WhatsApp {
   custom_link   String?
   status        Boolean @default(false)
   notes         String?
+  operator      String?
+  message       String?
 
   @@map("whatsApp")
 }

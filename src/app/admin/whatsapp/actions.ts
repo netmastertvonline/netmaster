@@ -85,7 +85,7 @@ export async function deleteWhatsApp(id: string) {
 }
 
 export async function editWhatsApp(id: string, values: WhatsApp) {
-    const { phone, phone_type, custom_link, notes } = values
+    const { phone, phone_type, custom_link, notes, operator, message } = values
 
     const updatedWhatsApp = await prisma.whatsApp.update({
         where: {
@@ -95,7 +95,9 @@ export async function editWhatsApp(id: string, values: WhatsApp) {
             phone, 
             phone_type, 
             custom_link, 
-            notes
+            notes,
+            operator,
+            message
         }
     })
     revalidatePath('/admin/whatsapp')
