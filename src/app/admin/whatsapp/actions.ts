@@ -38,6 +38,22 @@ export async function getAllWatsApps() {
     return
 }
 
+export async function getWatsApp(query: string) {
+    const res = await fetch(`${baseUrl}/whatsapp/results?search_query=${query}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'API-Key': process.env.DATA_API_KEY!,
+        },
+    })
+    if (res.ok) {
+        revalidatePath('/admin/whatsapp')
+        const allWhatsApp = await res.json()
+        return allWhatsApp
+    }
+    return
+}
+
 export async function getSalesNumbers() {
     const res = await fetch(`${baseUrl}/whatsapp/sales`, {
         method: 'GET',

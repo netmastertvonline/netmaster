@@ -6,16 +6,11 @@ import { Message } from '@/app/types/message';
 import { getAllMessages, searchMessages } from './actions';
 import { Search } from '@/components/Search';
 import CreateMessageButton from '@/components/employees/sales/services/messages/CreateMessageButton';
+import { SearchParamsProps } from '@/interfaces/searchparams';
 
 export const metadata: Metadata = {
     title: "Vendas - Mensagens",
 };
-
-interface SearchParamsProps {
-    searchParams?: {
-        query?: string;
-    }
-}
 
 const MessagesServiceSalesPage = async ({ searchParams }: Readonly<SearchParamsProps>) => {
     let messages: Message[] | [];

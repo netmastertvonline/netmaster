@@ -7,16 +7,11 @@ import React from 'react'
 import { getAllUsers, searchUser } from './actions'
 import { Screen, Subscription, User } from '@prisma/client'
 import { Search } from '@/components/Search'
+import { SearchParamsProps } from '@/interfaces/searchparams'
 
 export const metadata: Metadata = {
     title: "Vendas - Clientes",
 };
-
-interface SearchParamsProps {
-    searchParams?: {
-        query?: string;
-    } 
-}
 
 const ClientsSalesPage = async ({ searchParams } : Readonly<SearchParamsProps>) => {
     let clients;
