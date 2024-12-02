@@ -124,44 +124,48 @@ const WhatsApptForm = ({ whatsApp }: WhatsApptFormProps) => {
                             </FormItem>
                         )}
                     />
-                    <div className="grid grid-cols-2 gap-4">
-                        <FormField
-                            control={form.control}
-                            name="operator"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Atendente:</FormLabel>
-                                    <FormControl>
-                                        <Input
-                                            type="text"
-                                            disabled={isSubmitting}
-                                            placeholder="Nome do atendente"
-                                            {...field}
-                                        />
-                                    </FormControl>
-                                    <FormMessage className="text-[12px]" />
-                                </FormItem>
-                            )}
-                        />
-                        <FormField
-                            control={form.control}
-                            name="message"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Mensagem:</FormLabel>
-                                    <FormControl>
-                                        <Input
-                                            type="text"
-                                            disabled={isSubmitting}
-                                            placeholder="Gostaria de informações..."
-                                            {...field}
-                                        />
-                                    </FormControl>
-                                    <FormMessage className="text-[12px]" />
-                                </FormItem>
-                            )}
-                        />
-                    </div>
+                    {whatsApp && 
+                        <>
+                            <div className="grid grid-cols-2 gap-4">
+                                <FormField
+                                    control={form.control}
+                                    name="operator"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>Atendente:</FormLabel>
+                                            <FormControl>
+                                                <Input
+                                                    type="text"
+                                                    disabled={isSubmitting}
+                                                    placeholder="Nome do atendente"
+                                                    {...field}
+                                                />
+                                            </FormControl>
+                                            <FormMessage className="text-[12px]" />
+                                        </FormItem>
+                                    )}
+                                />
+                                <FormField
+                                    control={form.control}
+                                    name="message"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>Mensagem:</FormLabel>
+                                            <FormControl>
+                                                <Input
+                                                    type="text"
+                                                    disabled={isSubmitting}
+                                                    placeholder="Gostaria de informações..."
+                                                    {...field}
+                                                />
+                                            </FormControl>
+                                            <FormMessage className="text-[12px]" />
+                                        </FormItem>
+                                    )}
+                                />
+                            </div>
+                        </>
+                    }
                     <FormField
                         control={form.control}
                         name={"phone_type"}
