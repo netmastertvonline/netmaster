@@ -46,7 +46,7 @@ const RedirectTable = ({ redirects }: RedirectTableProps) => {
                                     redirect.status ? <Link target='_blank' href={`${baseUrlFront}/redirect/random`}>{`${baseUrlFront}/redirect/random`}</Link> : ""}
                                 </TableCell>
                                 <TableCell className="text-center w-[300px]">
-                                    {redirect.status ? <Link target='_blank' href={`${baseUrlFront}/redirect/random`}>{redirect?.custom_link}</Link> : "" }
+                                    {redirect.status ? <Link target='_blank' href={`${redirect?.custom_link}`}>{redirect?.custom_link}</Link> : "" }
                                 </TableCell>                                
                                 
                                 <TableCell className='text-center'>{redirect.status ? <Badge className='bg-green-400' >Ativo</Badge> : <Badge className='bg-red-600' >Inativo</Badge>}</TableCell>
