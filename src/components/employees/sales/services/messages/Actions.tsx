@@ -2,8 +2,8 @@ import { deleteMessage } from '@/app/employees/sales/services/messages/actions';
 import { useMessageProvider } from '@/app/hooks/useMessageProvider';
 import { Message } from '@/app/types/message';
 import { Button } from '@/components/ui/button'
-import { SquarePen, Trash } from 'lucide-react'
-import React from 'react'
+import { Copy, CopyCheck, SquarePen, Trash } from 'lucide-react'
+import React, { useState } from 'react'
 import toast from 'react-hot-toast';
 import { withSwal } from 'react-sweetalert2';
 
@@ -14,6 +14,7 @@ interface ActionsProps {
 
 const Actions: React.FC<ActionsProps> = ({ message, swal }) => {
   const messageModal = useMessageProvider();
+  const [isCopied, setIsCopied] = useState(false);
 
   const editMessage = (message: Message) => {
     messageModal.onOpen(message)
@@ -39,8 +40,21 @@ const Actions: React.FC<ActionsProps> = ({ message, swal }) => {
     });
   }
 
+  const copyMessage = () => {
+    navigator.clipboard.writeText(message.message);
+    setIsCopied(true);
+    toast.success('Mensagem copiada!');
+
+    setTimeout(() => {
+      setIsCopied(false);
+    }, 2000);
+  }
+
   return (
     <div className='flex items-center gap-4'>
+      <Button className='p-2' onClick={copyMessage} variant={"ghost"}>
+        {isCopied ? <CopyCheck /> : <Copy />}
+      </Button>
       <Button className='p-2' onClick={() => editMessage(message)} variant={"default"}>
         <SquarePen />
       </Button>

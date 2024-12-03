@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react'
 import { Message } from '@/app/types/message'
 import Actions from './Actions';
-import Preview from '@/components/Preview';
+import { Textarea } from '@/components/ui/textarea';
 
 interface MessageCardProps {
     messages: Message[];
@@ -42,8 +42,10 @@ const MessageCard = ({ messages }: MessageCardProps) => {
                                     <Actions message={message} />
                                 </div>
                             </div>
-                            <div className='border-t p-5'>
-                                <Preview 
+                            <div className='border-t p-4'>
+                                <Textarea
+                                    rows={19}
+                                    className="focus-visible:ring-0 dark:border-primary resize-none"
                                     value={message?.message}
                                 />
                             </div>

@@ -20,7 +20,7 @@ import { useMessageProvider } from "@/app/hooks/useMessageProvider";
 import { createMessage, updateMessage } from "@/app/employees/sales/services/messages/actions";
 import { Message } from "@/app/types/message";
 import { formatToLowerCase } from "@/lib/format-to-lowercase";
-import Editor from "@/components/Editor";
+import { Textarea } from "@/components/ui/textarea";
 
 const formSchema = z.object({
     title: z.string().toLowerCase().min(2, {
@@ -57,8 +57,6 @@ const MessageForm = ({ message }: MessageFormProps) => {
 
             if (message) {
                 res = await updateMessage(message?.id, values)
-                console.log("RES", res);
-
                 if (res?.status === 200) {
                     toast.success(res?.message)
                     form.reset()
@@ -83,7 +81,7 @@ const MessageForm = ({ message }: MessageFormProps) => {
     };
 
     return (
-        <div className="w-full h-fit overflow-y-auto">
+        <div className="w-full h-fit ">
             <Form {...form}>
                 <form
                     onSubmit={form.handleSubmit(onSubmit)}
@@ -116,9 +114,12 @@ const MessageForm = ({ message }: MessageFormProps) => {
                             <FormItem>
                                 <FormLabel className="font-bold text-base">Mensagem:</FormLabel>
                                 <FormControl >
-                                    <Editor
+                                    <Textarea
+                                        className="dark:border-primary resize-none"
+                                        disabled={isSubmitting}
+                                        rows={10}
                                         {...field}
-                                        value={field.value || ''}
+                                        onChange={(e) => field.onChange(formatToLowerCase(e.target.value))}
                                     />
                                 </FormControl>
                                 <FormMessage className="text-[12px]" />

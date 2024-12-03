@@ -5,9 +5,7 @@ import { baseUrl } from "@/utils/base-url"
 import { Redirect } from "@prisma/client"
 import { revalidatePath } from "next/cache"
 
-export async function createRedirect(values: Redirect) {
-    console.log("VALUES", values);
-    
+export async function createRedirect(values: Redirect) {    
     const res = await fetch(`${baseUrl}/redirects`, {
         method: 'POST',
         headers: {
