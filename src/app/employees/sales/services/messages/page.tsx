@@ -29,7 +29,7 @@ const MessagesServiceSalesPage = async ({ searchParams }: Readonly<SearchParamsP
                 <TitleH1Sales text='Mensagens' className='mb-5 text-center' />
                 <div className='grid grid-cols-2 gap-10 mb-5'>
                     <div className='flex gap-4'>
-                        <Search placeholder='Pix' />
+                        <Search placeholder='pix' />
                         <CreateMessageButton />
                     </div>
                 </div>
