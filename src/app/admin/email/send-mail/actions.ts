@@ -315,7 +315,7 @@ export async function sendTestEmail(email: string, msg: string, firstname: strin
     }
 }
 
-export async function sendMailMarketing(email: string, msg: string) {
+export async function sendMailMarketing(email: string, subject: string | undefined, msg: string,) {
 
     try {
         const message = msg
@@ -331,7 +331,7 @@ export async function sendMailMarketing(email: string, msg: string) {
         const mailOptions = {
             from: "Netmaster <netmastertvonline2052@gmail.com>",
             to: email,
-            subject: "Netmaster",
+            subject: subject ? subject : "Netmaster",
             html: message
         };
 

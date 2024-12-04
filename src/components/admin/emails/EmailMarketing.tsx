@@ -18,11 +18,13 @@ import { Loader } from "lucide-react";
 import Editor from "@/components/Editor";
 import { Textarea } from "@/components/ui/textarea";
 import { sendMailMarketing } from "@/app/admin/email/send-mail/actions";
+import { Input } from "@/components/ui/input";
 
 const formSchema = z.object({
     emails: z.string().min(1, {
         message: "Por favor, digite a mensagem.",
     }),
+    subject: z.string().optional(),
     message: z.string().min(1, {
         message: "Por favor, digite a mensagem.",
     }),
@@ -34,6 +36,7 @@ const EmailMarketingForm = () => {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
+            subject: '',
             emails: '',
             message: ''
         },
@@ -53,7 +56,7 @@ const EmailMarketingForm = () => {
         try {
             for (let index = 0; index < emailsArray.length; index++) {
                 const email = emailsArray[index];
-                await sendMailMarketing(email, values.message);
+                await sendMailMarketing(email, values?.subject, values.message);
                 toast.success(`Email ${index + 1} enviado com sucesso`);
             }
         } catch (error) {
@@ -70,7 +73,26 @@ const EmailMarketingForm = () => {
                 <form
                     onSubmit={form.handleSubmit(onSubmit)}
                     className="flex flex-col "
-                ><FormField
+                >
+                    <FormField
+                        control={form.control}
+                        name="subject"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Assunto:</FormLabel>
+                                <FormControl>
+                                    <Input
+                                        type="text"
+                                        disabled={isSubmitting}
+                                        placeholder="Renovação"
+                                        {...field}
+                                    />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    <FormField
                         control={form.control}
                         name="emails"
                         render={({ field }) => (
