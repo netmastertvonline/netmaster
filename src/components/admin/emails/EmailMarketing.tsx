@@ -102,7 +102,7 @@ const EmailMarketingForm = () => {
                                     <Textarea
                                         rows={7}
                                         disabled={isSubmitting}
-                                        placeholder="Digite os emails"
+                                        placeholder="Digite os e-mails, separando-os por vírgula"
                                         {...field}
                                     />
                                 </FormControl>
