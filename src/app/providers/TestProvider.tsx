@@ -112,7 +112,7 @@ const MyTestModalProvider = () => {
                         <h3>M3U 1: <span className='cursor-copy text-primary' onClick={() => copyContent(`http://playtec.tv/get.php?username=${myTest?.username}&password=${myTest?.password}&type=m3u_plus&output=m3u8`)} >http://playtec.tv/get.php?username={myTest?.username}&password={myTest?.password}&type=m3u_plus&output=m3u8</span></h3>
                       </div><br />
                       <div className='flex gap-2'>
-                        <h3>M3U 2: <span className='cursor-copy text-primary' onClick={() => copyContent(`http://7svrcdn3.xyz:8080/get.php?username=${myTest?.username}&password=${myTest?.password}&type=m3u_plus&output=ts`)} >http://7svrcdn3.xyz:8080/get.php?username={myTest?.user_teste}&password={myTest?.senha_teste}&type=m3u_plus&output=ts</span></h3>
+                        <h3>M3U 2: <span className='cursor-copy text-primary' onClick={() => copyContent(`http://7svrcdn3.xyz:8080/get.php?username=${myTest?.username}&password=${myTest?.password}&type=m3u_plus&output=ts`)} >http://7svrcdn3.xyz:8080/get.php?username={myTest?.username}&password={myTest?.password}&type=m3u_plus&output=ts</span></h3>
                       </div><br />
                       <div className='flex gap-2'>
                         <h3>SSIPTV: <span className='cursor-copy text-primary' onClick={() => copyContent(`http://playtec.tv/ssiptv/${myTest?.username}/${myTest?.password}/download_mode`)} >http://playtec.tv/ssiptv/{myTest?.username}/{myTest?.password}/download_mode</span></h3>
