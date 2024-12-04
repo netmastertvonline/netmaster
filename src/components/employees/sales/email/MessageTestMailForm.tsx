@@ -78,29 +78,31 @@ const MessageTestMailForm = () => {
     return (
         <div className="w-full">
             <Form {...form}>
-                <FormField
-                    control={form.control}
-                    name="name"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>Nome:</FormLabel>
-                            <FormControl>
-                                <Input
-                                    type="text"
-                                    disabled={isSubmitting}
-                                    placeholder="Digite seu nome"
-                                    {...field}
-                                    value={formatName(field.value)}
-                                />
-                            </FormControl>
-                            <FormMessage className="text-[12px]" />
-                        </FormItem>
-                    )}
-                />
                 <form
                     onSubmit={form.handleSubmit(onSubmit)}
                     className="flex flex-col "
-                ><FormField
+
+                >
+                    <FormField
+                        control={form.control}
+                        name="name"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Nome:</FormLabel>
+                                <FormControl>
+                                    <Input
+                                        type="text"
+                                        disabled={isSubmitting}
+                                        placeholder="Digite seu nome"
+                                        {...field}
+                                        value={formatName(field.value)}
+                                    />
+                                </FormControl>
+                                <FormMessage className="text-[12px]" />
+                            </FormItem>
+                        )}
+                    />
+                    <FormField
                         control={form.control}
                         name="email"
                         render={({ field }) => (
@@ -142,12 +144,12 @@ const MessageTestMailForm = () => {
                             variant={"default"}
                             disabled={!isValid || isSubmitting || isSendingMail}
                         >
-                            {isSendingMail ? 
-                             <span className="flex items-center gap-2">
-                                Enviando email <Loader className="animate-spin" />
-                             </span>
-                             :
-                              "Enviar email"}
+                            {isSendingMail ?
+                                <span className="flex items-center gap-2">
+                                    Enviando email <Loader className="animate-spin" />
+                                </span>
+                                :
+                                "Enviar email"}
                         </Button>
                     </div>
                 </form>
