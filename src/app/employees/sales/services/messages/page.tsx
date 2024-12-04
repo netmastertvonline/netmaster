@@ -21,7 +21,6 @@ const MessagesServiceSalesPage = async ({ searchParams }: Readonly<SearchParamsP
         messages = await getAllMessages()
     }
 
-
     return (
         <div className='p-5 w-full h-full'>
             <div className='w-full '>
